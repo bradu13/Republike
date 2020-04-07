@@ -1,7 +1,6 @@
 Republike Project
 --   
     Endpoints
-        •	POST /auth/register
         •	POST /auth/login
         •	POST /auth/forgot
         •	POST /auth/reset
@@ -31,18 +30,19 @@ Republike Project
         •	DELETE /comments/{id}
         •	
         •	GET /notifications/
+        •	GET /search/
         •	PUT /usersettings/
         •	
-        •	PUT /user/
-        •	DELETE /user/
-        •	GET /user/friends
-        •	POST /user/addtofriends
-        •	DELETE /user/removefromfriends
-        •	POST /user/friendrequest
-        •	DELETE /user/removefriendrequest
-        •	GET /user/famelist
-        •	POST /user/addtofav
-        •	DELETE /user/removefromfav
-        •	
-        •	GET /search
+        •   POST /users/
+        •   GET /users/{id}/
+        •	PUT /users/{id}/
+        •	DELETE /users/{id}/
+        •	GET /users/{id}/friends/
+        •	GET /users/{id}/favorites/
+        •   POST /users/{id}/friends/
+        •   POST /users/{id}/friendrequests/
+        •   POST /users/{id}/favorites/
+        •	DELETE /users/{id}/friends/
+        •	DELETE /users/{id}/friendsrequests/
+        •	DELETE /users/{id}/favorites/
     
