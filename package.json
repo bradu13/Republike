@@ -1,0 +1,19 @@
+{
+  "name": "republike",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "env-cmd node ./bin/www",
+    "dev": "env-cmd nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
+
