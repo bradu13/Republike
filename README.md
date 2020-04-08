@@ -1,5 +1,17 @@
-Republike Project
---   
+# Republike Project   
+
+    Error Structure:
+    {
+        "status": "0",
+        "error": "[message]"
+    }
+    
+    Resource Structure:
+    {
+        "status": "1",
+        "data": [data]
+    }
+
     Endpoints
         •	POST /auth/login
         •	POST /auth/forgot
