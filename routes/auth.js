@@ -2,66 +2,38 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const router = express.Router();
+const User = require('../db/index').User;
+const strings = require('../util/strings');
+const rError = require('../util/error');
+const rSuccess = require('../util/success');
+
 require('../config/passport')(passport);
-const User = require('../models').User;
 
-router.post('/register', function(req, res) {
-    console.log(req.body);
-    if (!req.body.username || !req.body.password) {
-        res.status(400).send({msg: 'Please pass username and password.'})
-    } else {
-        User
-            .create({
-                username: req.body.username,
-                password: req.body.password
-            })
-            .then((user) => res.status(201).send(user))
-            .catch((error) => {
-                console.log(error);
-                res.status(400).send(error);
-            });
-    }
-});
+router.post('/login', async (req, res) => {
 
-router.post('/login', function(req, res) {
-    User
-        .findOne({
-            where: {
-                username: req.body.username
-            }
-        })
-        .then((user) => {
-            if (!user) {
-                return res.status(401).send({
-                    message: 'Authentication failed. User not found.',
-                });
-            }
-            user.comparePassword(req.body.password, (err, isMatch) => {
-                if(isMatch && !err) {
-                    var token = jwt.sign(JSON.parse(JSON.stringify(user)), 'nodeauthsecret', {expiresIn: 86400 * 30});
-                    jwt.verify(token, 'nodeauthsecret', function(err, data){
-                        console.log(err, data);
-                    })
-                    res.json({success: true, token: 'JWT ' + token});
-                } else {
-                    res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
-                }
-            })
-        })
-        .catch((error) => res.status(400).send(error));
-});
+    try{
+        const user = await User.findOne({where: {username: req.body.username}});
 
-getToken = function (headers) {
-    if (headers && headers.authorization) {
-        var parted = headers.authorization.split(' ');
-        if (parted.length === 2) {
-            return parted[1];
-        } else {
-            return null;
+        if (!user) {
+            return rError(res, 401, strings.login.notFound);
         }
-    } else {
-        return null;
+
+        user.comparePassword(req.body.password, (err, isMatch) => {
+            if(isMatch && !err) {
+                const token = jwt.sign(JSON.parse(JSON.stringify(user)), process.env.JWT, {expiresIn: 86400 * 30});
+
+                jwt.verify(token, process.env.JWT, function(err, data){
+                    console.log(err, data);
+                });
+
+                return rSuccess(res, 200, {token: 'JWT ' + token});
+            }
+            return rError(res,401, strings.login.wrongPassword);
+        });
+
+    }catch (error){
+        return rError(res, 400, error);
     }
-};
+});
 
 module.exports = router;
