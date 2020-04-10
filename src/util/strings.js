@@ -7,6 +7,7 @@ module.exports = {
     wrongPassword: 'Authentication failed. Wrong password.'
   },
   errors: {
-    addUser: 'Error while creating user.'
+    addUser: 'Error while creating user.',
+    getUser: 'Error while getting the user.'
   }
 };

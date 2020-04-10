@@ -1,12 +1,13 @@
 const UserService = require('../services/user.services');
 const strings = require('../util/strings');
+const HTTPStatus = require('http-status-codes');
 const rError = require('../util/error');
 const rSuccess = require('../util/success');
 
 module.exports = {
   add: async (req, res) => {
     if (!req.body.username || !req.body.password) {
-      return rError(res, 400, strings.register.noData);
+      return rError(res, HTTPStatus.BAD_REQUEST, strings.register.noData);
     }
 
     try {
@@ -15,9 +16,9 @@ module.exports = {
         password: req.body.password
       });
 
-      return rSuccess(res, 201, user);
+      return rSuccess(res, HTTPStatus.CREATED, user);
     } catch (error) {
-      return rError(res, 400, error);
+      return rError(res, HTTPStatus.BAD_REQUEST, error);
     }
   }
 };

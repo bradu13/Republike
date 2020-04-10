@@ -9,5 +9,12 @@ module.exports = {
       console.log(error);
       throw Error(strings.errors.addUser);
     }
+  },
+  get: async (filter) => {
+    try {
+      return await UserModel.findOne(filter);
+    } catch (error) {
+      throw Error(strings.errors.getUser);
+    }
   }
 };
