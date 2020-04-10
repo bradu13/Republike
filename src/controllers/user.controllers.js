@@ -1,4 +1,4 @@
-const UserModel = require('../db').User;
+const UserService = require('../services/user.services');
 const strings = require('../util/strings');
 const rError = require('../util/error');
 const rSuccess = require('../util/success');
@@ -10,7 +10,7 @@ module.exports = {
     }
 
     try {
-      const user = await UserModel.create({
+      const user = await UserService.add({
         username: req.body.username,
         password: req.body.password
       });

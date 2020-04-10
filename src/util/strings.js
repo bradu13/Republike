@@ -5,5 +5,8 @@ module.exports = {
   login: {
     notFound: 'Authentication failed. User not found.',
     wrongPassword: 'Authentication failed. Wrong password.'
+  },
+  errors: {
+    addUser: 'Error while creating user.'
   }
 };
