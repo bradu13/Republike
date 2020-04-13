@@ -13,9 +13,8 @@
   
   Body: [user]<br>
   Returns: [user]
-  
-
-
+ 
+ 
     Error Structure:
     {
         "status": "0",

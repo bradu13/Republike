@@ -13,9 +13,14 @@ module.exports = {
         password: req.body.password
       });
 
-      await MailService.send({
+      MailService.send({
+        to: [user.email],
         title: strings.email.newUser,
-        to: [user.email]
+        template: 'new-user',
+        templateVars: {
+          name: user.email,
+          url: '#'
+        }
       });
 
       return rSuccess(res, HTTPStatus.CREATED, user);

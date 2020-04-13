@@ -1,5 +1,5 @@
 module.exports = {
-  send: async (options) => {
+  send: (options) => {
     return true;
   }
 };
