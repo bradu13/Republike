@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT, (err, decoded) => {
     if (err) {
-      return rError(res, HTTPStatus.BAD_REQUEST, strings.errors.failToken);
+      return rError(res, HTTPStatus.FORBIDDEN, strings.errors.failToken);
     }
 
     req.user = {
