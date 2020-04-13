@@ -18,12 +18,15 @@ module.exports = {
         if (isMatch && !err) {
           const token = jwt.sign(JSON.parse(JSON.stringify(user)), process.env.JWT, { expiresIn: 86400 * 30 });
 
-          jwt.verify(token, process.env.JWT, function (err, data) {
-            console.log(err, data);
-          });
+          return jwt.verify(token, process.env.JWT, function (err, data) {
+            if (!err) {
+              return rSuccess(res, HTTPStatus.OK, { token: 'JWT ' + token });
+            }
 
-          return rSuccess(res, HTTPStatus.OK, { token: 'JWT ' + token });
+            return rError(res, HTTPStatus.INTERNAL_SERVER_ERROR, strings.errors.failToken);
+          });
         }
+
         return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.wrongPassword);
       });
     } catch (error) {
