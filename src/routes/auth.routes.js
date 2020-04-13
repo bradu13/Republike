@@ -9,4 +9,6 @@ require('../config/passport')(passport);
 // Login route
 router.post('/login', validateSchema.userValidation, AuthController.login);
 
+// Forgot route
+
 module.exports = router;

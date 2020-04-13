@@ -6,6 +6,9 @@ module.exports = {
     notFound: 'Authentication failed. User not found.',
     wrongPassword: 'Authentication failed. Wrong password.'
   },
+  email: {
+    newUser: '[Republike] Please verify your account.'
+  },
   errors: {
     addUser: 'Error while creating user.',
     duplicateUser: 'There is another user with this email.',
