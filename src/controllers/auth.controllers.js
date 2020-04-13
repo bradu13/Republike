@@ -8,7 +8,7 @@ const rSuccess = require('../util/success');
 module.exports = {
   login: async (req, res) => {
     try {
-      const user = await UserService.get({ where: { username: req.body.username } });
+      const user = await UserService.get({ where: { email: req.body.email } });
 
       if (!user) {
         return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.notFound);

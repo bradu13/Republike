@@ -6,8 +6,12 @@ module.exports = {
     try {
       return await UserModel.create(user);
     } catch (error) {
-      console.log(error);
-      throw Error(strings.errors.addUser);
+      switch(error.name){
+        case 'SequelizeUniqueConstraintError':
+          throw strings.errors.duplicateUser;
+        default:
+          throw strings.errors.addUser;
+      }
     }
   },
   get: async (filter) => {

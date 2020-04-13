@@ -8,6 +8,7 @@ module.exports = {
   },
   errors: {
     addUser: 'Error while creating user.',
+    duplicateUser: 'There is another user with this email.',
     getUser: 'Error while getting the user.',
     noToken: 'No token was provided.',
     failToken: 'Failed to authenticate token.'
