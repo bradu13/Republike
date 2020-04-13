@@ -14,6 +14,54 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      fbToken: {
+        type: Sequelize.STRING
+      },
+      fullName: {
+        type: Sequelize.STRING
+      },
+      gender: {
+        type: Sequelize.INTEGER
+      },
+      birthDate: {
+        type: Sequelize.DATEONLY
+      },
+      country: {
+        type: Sequelize.STRING
+      },
+      biography: {
+        type: Sequelize.TEXT
+      },
+      aureusAmount: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      likeAmount: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      interestedIn: {
+        type: Sequelize.ARRAY(Sequelize.UUID)
+      },
+      favouritePosts: {
+        type: Sequelize.ARRAY(Sequelize.UUID)
+      },
+      friends: {
+        type: Sequelize.ARRAY(Sequelize.UUID)
+      },
+      friendRequests: {
+        type: Sequelize.ARRAY(Sequelize.UUID)
+      },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+      isDeleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -24,7 +72,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Users');
   }
 };

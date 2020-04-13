@@ -4,10 +4,24 @@ const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    fbToken: DataTypes.STRING,
+    fullName: DataTypes.STRING,
+    gender: DataTypes.INTEGER,
+    birthDate: DataTypes.DATEONLY,
+    country: DataTypes.STRING,
+    biography: DataTypes.INTEGER,
+    aureusAmount: DataTypes.INTEGER,
+    likeAmount: DataTypes.INTEGER,
+    interestedIn: DataTypes.ARRAY(DataTypes.UUID),
+    favouritePosts: DataTypes.ARRAY(DataTypes.UUID),
+    friends: DataTypes.ARRAY(DataTypes.UUID),
+    friendRequests: DataTypes.ARRAY(DataTypes.UUID),
+    isActive: DataTypes.BOOLEAN,
+    isDeleted: DataTypes.BOOLEAN
   }, {});
 
-  User.beforeSave((user, options) => {
+  User.beforeSave((user) => {
     if (user.changed('password')) {
       user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     }
