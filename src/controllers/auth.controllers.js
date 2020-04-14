@@ -8,7 +8,7 @@ const rSuccess = require('../util/success');
 module.exports = {
   login: async (req, res) => {
     try {
-      const user = await UserService.get({ where: { email: req.body.email } });
+      const user = await UserService.get({where: {email: req.body.email}});
 
       if (!user) {
         return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.notFound);
@@ -16,11 +16,13 @@ module.exports = {
 
       user.comparePassword(req.body.password, (err, isMatch) => {
         if (isMatch && !err) {
-          const token = jwt.sign(JSON.parse(JSON.stringify(user)), process.env.JWT, { expiresIn: 86400 * 30 });
+          const token = jwt.sign(JSON.parse(JSON.stringify({
+            id: user.id
+          })), process.env.JWT, {expiresIn: 86400 * 30});
 
           return jwt.verify(token, process.env.JWT, function (err, data) {
             if (!err) {
-              return rSuccess(res, HTTPStatus.OK, { token: 'JWT ' + token });
+              return rSuccess(res, HTTPStatus.OK, {token: 'JWT ' + token});
             }
 
             return rError(res, HTTPStatus.INTERNAL_SERVER_ERROR, strings.errors.failToken);

@@ -8,7 +8,7 @@ const validateAuth = require('../middleware/auth');
 router.post('/', validateSchema.userValidation, UserController.add);
 
 // Get user by id
-router.post('/:id/', validateAuth, (req, res) => {
+router.post('/:id/', validateAuth.jwt, (req, res) => {
   return res.status(200).send(req.user);
 });
 

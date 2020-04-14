@@ -1,8 +1,11 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
+require('./config/passport')(passport);
 
 const usersRouter = require('./routes/user.routes');
 const authRouter = require('./routes/auth.routes');
