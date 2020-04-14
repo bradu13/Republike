@@ -9,11 +9,16 @@ module.exports = {
   email: {
     newUser: '[Republike] Please verify your account.'
   },
+  activate: {
+    success: 'The user was activated.'
+  },
   errors: {
     addUser: 'Error while creating user.',
     duplicateUser: 'There is another user with this email.',
     getUser: 'Error while getting the user.',
     noToken: 'No token was provided.',
-    failToken: 'Failed to authenticate token.'
+    failToken: 'Failed to authenticate token.',
+    noUser: 'No user was found.',
+    isActive: 'This user is already active.'
   }
 };

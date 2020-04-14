@@ -7,6 +7,7 @@ const validateSchema = require('../middleware/schema');
 // Login route
 router.post('/login', validateSchema.userValidation, AuthController.login);
 
-// Forgot route
+// Activate route
+router.get('/activate', AuthController.activate);
 
 module.exports = router;

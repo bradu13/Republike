@@ -34,5 +34,28 @@ module.exports = {
     } catch (error) {
       return rError(res, HTTPStatus.BAD_REQUEST, error);
     }
+  },
+  activate: async (req,res) => {
+    try {
+      const data = await jwt.verify(req.query.token, process.env.JWT);
+
+      const user = await UserService.get({where: {id: data.id}});
+
+      if(!user){
+        return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
+      }
+
+      if(user.isActive){
+        return rError(res, HTTPStatus.CONFLICT, strings.errors.isActive);
+      }
+
+      user.isActive = true;
+
+      await user.save();
+
+      return rSuccess(res, HTTPStatus.OK, strings.activate.success);
+    }catch(error){
+      return rError(res, HTTPStatus.BAD_REQUEST, error);
+    }
   }
 };
