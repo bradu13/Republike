@@ -15,7 +15,7 @@ module.exports = {
 
       MailService.send({
         to: [user.email],
-        title: strings.email.newUser,
+        subject: strings.email.newUser,
         template: 'new-user',
         templateVars: {
           name: user.email,
