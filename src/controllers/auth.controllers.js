@@ -8,7 +8,7 @@ const rSuccess = require('../util/success');
 
 const login = async (req, res) => {
   try {
-    const user = await UserService.get({where: {email: req.body.email}});
+    const user = await UserService.get({ where: { email: req.body.email } });
 
     if (!user) {
       return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.notFound);
@@ -18,11 +18,11 @@ const login = async (req, res) => {
       if (isMatch && !err) {
         const token = jwt.sign(JSON.parse(JSON.stringify({
           id: user.id
-        })), process.env.JWT, {expiresIn: 86400 * 30});
+        })), process.env.JWT, { expiresIn: 86400 * 30 });
 
         return jwt.verify(token, process.env.JWT, function (err, data) {
           if (!err) {
-            return rSuccess(res, HTTPStatus.OK, {token: 'JWT ' + token});
+            return rSuccess(res, HTTPStatus.OK, { token: 'JWT ' + token });
           }
 
           return rError(res, HTTPStatus.INTERNAL_SERVER_ERROR, strings.errors.failToken);
@@ -36,17 +36,17 @@ const login = async (req, res) => {
   }
 };
 
-const activate = async (req,res) => {
+const activate = async (req, res) => {
   try {
     const data = await jwt.verify(req.query.token, process.env.JWT);
 
-    const user = await UserService.get({where: {id: data.id}});
+    const user = await UserService.get({ where: { id: data.id } });
 
-    if(!user){
+    if (!user) {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
     }
 
-    if(user.isActive){
+    if (user.isActive) {
       return rError(res, HTTPStatus.CONFLICT, strings.errors.isActive);
     }
 
@@ -55,27 +55,27 @@ const activate = async (req,res) => {
     await user.save();
 
     return rSuccess(res, HTTPStatus.OK, strings.activate.success);
-  }catch(error){
+  } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
 
-const forgot = async(req,res) => {
-  if(!req.body.email){
+const forgot = async (req, res) => {
+  if (!req.body.email) {
     return rError(res, HTTPStatus.BAD_REQUEST, strings.errors.userEmailRequired);
   }
 
-  try{
-    const user = await UserService.get({where: {email: req.body.email}});
+  try {
+    const user = await UserService.get({ where: { email: req.body.email } });
 
-    if(!user){
+    if (!user) {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
     }
 
     const url = req.protocol + '://' + req.get('host');
     const forgotToken = jwt.sign(JSON.parse(JSON.stringify({
       id: user.id
-    })), process.env.JWT, {expiresIn: 86400 * 30});
+    })), process.env.JWT, { expiresIn: 86400 });
 
     MailService.send({
       to: [user.email],
@@ -88,7 +88,31 @@ const forgot = async(req,res) => {
     });
 
     return rSuccess(res, HTTPStatus.OK, strings.forgot.sent);
-  }catch(error){
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const reset = async (req, res) => {
+  if (!req.body.password) {
+    return rError(res, HTTPStatus.BAD_REQUEST, strings.errors.noPassword);
+  }
+
+  try {
+    const data = await jwt.verify(req.query.token, process.env.JWT);
+
+    const user = await UserService.get({ where: { id: data.id } });
+
+    if (!user) {
+      return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
+    }
+
+    user.password = req.body.password;
+
+    await user.save();
+
+    return rSuccess(res, HTTPStatus.OK, strings.reset.success);
+  } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
@@ -96,5 +120,6 @@ const forgot = async(req,res) => {
 module.exports = {
   login,
   activate,
-  forgot
+  forgot,
+  reset
 };

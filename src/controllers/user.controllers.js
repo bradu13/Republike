@@ -17,7 +17,7 @@ module.exports = {
       const url = req.protocol + '://' + req.get('host');
       const activateToken = jwt.sign(JSON.parse(JSON.stringify({
         id: user.id
-      })), process.env.JWT, {expiresIn: 86400 * 30});
+      })), process.env.JWT, { expiresIn: 86400 * 30 });
 
       MailService.send({
         to: [user.email],

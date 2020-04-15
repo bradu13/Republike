@@ -8,10 +8,13 @@ module.exports = {
   },
   email: {
     newUser: '[Republike] Please verify your account.',
-    forgotPassword: '[Republike] Change your password.',
+    forgotPassword: '[Republike] Change your password.'
   },
   activate: {
     success: 'The user was activated.'
+  },
+  reset: {
+    success: 'The new password was set.'
   },
   forgot: {
     sent: 'The reset link was sent to your email address.'
@@ -23,6 +26,7 @@ module.exports = {
     noToken: 'No token was provided.',
     failToken: 'Failed to authenticate token.',
     noUser: 'No user was found.',
+    noPassword: 'Please pass the new password.',
     isActive: 'This user is already active.',
     userIdRequired: 'The `id` of the user is required.',
     userEmailRequired: 'The `email` of the user is required.'

@@ -22,7 +22,7 @@ const handlebarsOptions = {
     extName: '.html',
     partialsDir: 'src/templates',
     layoutsDir: 'src/templates',
-    defaultLayout: 'email.html',
+    defaultLayout: 'email.html'
   },
   viewPath: path.resolve('src/templates'),
   extName: '.html'
