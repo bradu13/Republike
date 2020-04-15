@@ -2,17 +2,8 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-semistandard-brightgreen.svg)](https://standardjs.com) 
 
 ****
-+ POST /auth/login
-  
-  Body: {email,  password}<br>
-  Returns: {email, id}
-  
-  
-  ****
-+ POST /users
-  
-  Body: [user]<br>
-  Returns: [user]
+<a href="https://documenter.getpostman.com/view/11004527/Szf3YUqN" target="_blank">Documentatie</a>
+****
  
  
     Error Structure:

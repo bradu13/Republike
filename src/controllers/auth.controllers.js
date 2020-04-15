@@ -38,9 +38,7 @@ const login = async (req, res) => {
 
 const activate = async (req, res) => {
   try {
-    const data = await jwt.verify(req.query.token, process.env.JWT);
-
-    const user = await UserService.get({ where: { id: data.id } });
+    const user = await UserService.get({ where: { id: req.user.id } });
 
     if (!user) {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
@@ -99,9 +97,7 @@ const reset = async (req, res) => {
   }
 
   try {
-    const data = await jwt.verify(req.query.token, process.env.JWT);
-
-    const user = await UserService.get({ where: { id: data.id } });
+    const user = await UserService.get({ where: { id: req.user.id } });
 
     if (!user) {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
