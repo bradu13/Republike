@@ -10,4 +10,7 @@ router.post('/login', validateSchema.userValidation, AuthController.login);
 // Activate route
 router.get('/activate', AuthController.activate);
 
+// Forgot password route
+router.post('/forgot', AuthController.forgot);
+
 module.exports = router;

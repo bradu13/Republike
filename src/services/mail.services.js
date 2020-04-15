@@ -19,13 +19,13 @@ const smtpTransport = nodemailer.createTransport({
 // Configure Hbs to steal templates :)
 const handlebarsOptions = {
   viewEngine: {
-    extName: '.hbs',
+    extName: '.html',
     partialsDir: 'src/templates',
     layoutsDir: 'src/templates',
-    defaultLayout: 'email.hbs',
+    defaultLayout: 'email.html',
   },
   viewPath: path.resolve('src/templates'),
-  extName: '.hbs'
+  extName: '.html'
 };
 
 // Combine smtp with hbs
