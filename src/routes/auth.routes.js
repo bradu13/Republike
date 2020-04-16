@@ -5,7 +5,7 @@ const validateSchema = require('../middleware/schema');
 const validateAuth = require('../middleware/auth');
 
 // Login route
-router.post('/login', validateSchema.userValidation, AuthController.login);
+router.post('/login', validateSchema.userAdd, AuthController.login);
 
 // Activate route
 router.get('/activate', validateAuth.jwt, AuthController.activate);

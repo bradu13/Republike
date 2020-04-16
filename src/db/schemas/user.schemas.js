@@ -1,11 +1,10 @@
 const Joi = require('@hapi/joi');
 
-module.exports = Joi.object({
+const update = Joi.object({
   email: Joi.string()
     .email()
     .min(3)
-    .max(30)
-    .required(),
+    .max(30),
 
   password: Joi.string()
     .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
@@ -59,10 +58,18 @@ module.exports = Joi.object({
 
   isActive: Joi.boolean(),
 
-  isDeleted: Joi.boolean(),
-
-  access_token: [
-    Joi.string(),
-    Joi.number()
-  ]
+  isDeleted: Joi.boolean()
 });
+
+const create = update.keys({
+  email: Joi.string()
+    .email()
+    .min(3)
+    .max(30)
+    .required()
+});
+
+module.exports = {
+  update,
+  create
+};

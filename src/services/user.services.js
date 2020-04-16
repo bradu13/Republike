@@ -18,7 +18,29 @@ module.exports = {
     try {
       return await UserModel.findOne(filter);
     } catch (error) {
-      throw Error(strings.errors.getUser);
+      throw strings.errors.getUser;
+    }
+  },
+  getById: async (id) => {
+    try {
+      return await UserModel.findOne({ where: { id } });
+    } catch (error) {
+      throw strings.errors.getUser;
+    }
+  },
+  update: async (id, fields) => {
+    try {
+      const user = await UserModel.findOne({ where: { id } });
+
+      if (!user) {
+        return user;
+      }
+
+      await user.update(fields);
+
+      return user;
+    } catch (error) {
+      throw strings.errors.updateUser;
     }
   }
 };

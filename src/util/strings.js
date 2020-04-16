@@ -19,6 +19,9 @@ module.exports = {
   forgot: {
     sent: 'The reset link was sent to your email address.'
   },
+  delete: {
+    success: 'The item was deleted.'
+  },
   errors: {
     addUser: 'Error while creating user.',
     duplicateUser: 'There is another user with this email.',
@@ -29,6 +32,7 @@ module.exports = {
     noPassword: 'Please pass the new password.',
     isActive: 'This user is already active.',
     userIdRequired: 'The `id` of the user is required.',
-    userEmailRequired: 'The `email` of the user is required.'
+    userEmailRequired: 'The `email` of the user is required.',
+    updateUser: 'Error while updating user'
   }
 };
