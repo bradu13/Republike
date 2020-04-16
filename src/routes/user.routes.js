@@ -16,4 +16,7 @@ router.put('/:id/', validateAuth.jwt, validateSchema.userUpdate, UserController.
 // Delete user by id
 router.delete('/:id/', validateAuth.jwt, UserController.remove);
 
+// Get friends
+router.get('/:id/friends', validateAuth.jwt, UserController.getFriends);
+
 module.exports = router;

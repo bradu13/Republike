@@ -78,9 +78,24 @@ const remove = async (req, res) => {
   }
 };
 
+const getFriends = async (req, res) => {
+  try {
+    const user = await UserService.getById(req.params.id);
+
+    if (!user) {
+      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
+    }
+
+    return rSuccess(res, HTTPStatus.OK, user.friends);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
 module.exports = {
   add,
   get,
   update,
-  remove
+  remove,
+  getFriends
 };
