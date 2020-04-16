@@ -42,5 +42,23 @@ module.exports = {
     } catch (error) {
       throw strings.errors.updateUser;
     }
+  },
+  addFriend: async (user, friend) => {
+
+    if(!friend.isActive){
+      throw strings.errors.inactiveFriend;
+    }
+
+    if(friend.isDeleted){
+      throw strings.errors.deletedFriend;
+    }
+
+    if(!Array.isArray(user.friends)){
+      user.friends = [];
+    }
+
+    user.friends.push(friend.id);
+
+    await user.save();
   }
 };

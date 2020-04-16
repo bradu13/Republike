@@ -4,7 +4,9 @@ module.exports = {
   },
   login: {
     notFound: 'Authentication failed. User not found.',
-    wrongPassword: 'Authentication failed. Wrong password.'
+    wrongPassword: 'Authentication failed. Wrong password.',
+    notActive: 'Authentication failed. Email is not confirmed.',
+    deleted: 'Authentication failed. This account was disabled.'
   },
   email: {
     newUser: '[Republike] Please verify your account.',
@@ -33,6 +35,8 @@ module.exports = {
     isActive: 'This user is already active.',
     userIdRequired: 'The `id` of the user is required.',
     userEmailRequired: 'The `email` of the user is required.',
-    updateUser: 'Error while updating user'
+    updateUser: 'Error while updating user',
+    inactiveFriend: 'The user needs to confirm his email address before making friends.',
+    deletedFriend: 'This user was deleted.'
   }
 };
