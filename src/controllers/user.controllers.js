@@ -157,6 +157,23 @@ const addFriendRequest = async (req, res) => {
   }
 };
 
+const deleteFriendRequest = async (req, res) => {
+  try {
+    const user = await UserService.getById(req.params.id);
+    const friend = await UserService.getById(req.body.id);
+
+    if (!friend || !user) {
+      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
+    }
+
+    await UserService.deleteFriendRequest(req.user, friend);
+
+    return rSuccess(res, HTTPStatus.CREATED, strings.friends.removedRequest);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
 module.exports = {
   add,
   get,
@@ -166,5 +183,6 @@ module.exports = {
   addFriend,
   deleteFriend,
   getFriendRequests,
-  addFriendRequest
+  addFriendRequest,
+  deleteFriendRequest
 };

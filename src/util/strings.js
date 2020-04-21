@@ -27,6 +27,7 @@ module.exports = {
   friends: {
     created: 'The users are now friends.',
     createdRequest: 'The friend request was sent.',
+    removedRequest: 'The friend request was removed.',
     removed: 'The friend was removed.'
   },
   errors: {
@@ -45,6 +46,8 @@ module.exports = {
     deletedFriend: 'This user was deleted.',
     alreadyFriends: 'They are already friends.',
     noFriends: 'This user has no friends.',
-    friendNotFound: 'This user is not his friend.'
+    noFriendRequests: 'This user has no friend requests.',
+    friendNotFound: 'This user is not his friend.',
+    friendRequestNotFound: 'There is no such friend request from this user.'
   }
 };

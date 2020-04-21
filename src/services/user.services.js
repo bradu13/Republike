@@ -104,6 +104,21 @@ module.exports = {
 
     user.friendRequests.push(friend.id);
 
-    await user.save();
+    await user.update({ friendRequests: user.friendRequests });
+  },
+  deleteFriendRequest: async (user, friend) => {
+    if (!Array.isArray(user.friendRequests)) {
+      throw strings.errors.noFriendRequests;
+    }
+
+    if (!user.friendRequests.includes(friend.id)) {
+      throw strings.errors.friendRequestNotFound;
+    }
+
+    const indexUser = user.friendRequests.indexOf(friend.id);
+
+    user.friendRequests.splice(indexUser, 1);
+
+    await user.update({ friendRequests: user.friendRequests });
   }
 };
