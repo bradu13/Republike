@@ -23,14 +23,14 @@ module.exports = {
   },
   getById: async (id) => {
     try {
-      return await UserModel.findOne({where: {id}});
+      return await UserModel.findOne({ where: { id } });
     } catch (error) {
       throw strings.errors.getUser;
     }
   },
   update: async (id, fields) => {
     try {
-      const user = await UserModel.findOne({where: {id}});
+      const user = await UserModel.findOne({ where: { id } });
 
       if (!user) {
         return user;
@@ -65,7 +65,7 @@ module.exports = {
       throw strings.errors.noFriends;
     }
 
-    if(!user.friends.contains(friend.id)){
+    if (!user.friends.contains(friend.id)) {
       throw strings.errors.friendNotFound;
     }
 

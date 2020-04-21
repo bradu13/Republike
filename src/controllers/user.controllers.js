@@ -92,8 +92,8 @@ const getFriends = async (req, res) => {
   }
 };
 
-const addFriend = async(req,res) => {
-  try{
+const addFriend = async (req, res) => {
+  try {
     const user = await UserService.getById(req.params.id);
     const friend = await UserService.getById(req.body.id);
 
@@ -101,7 +101,7 @@ const addFriend = async(req,res) => {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
     }
 
-    await UserService.addFriend(req.user,friend);
+    await UserService.addFriend(req.user, friend);
 
     return rSuccess(res, HTTPStatus.CREATED, strings.friends.created);
   } catch (error) {
@@ -109,8 +109,8 @@ const addFriend = async(req,res) => {
   }
 };
 
-const deleteFriend = async(req, res) => {
-  try{
+const deleteFriend = async (req, res) => {
+  try {
     const user = await UserService.getById(req.params.id);
     const friend = await UserService.getById(req.body.id);
 
@@ -119,7 +119,23 @@ const deleteFriend = async(req, res) => {
     }
 
     await UserService.deleteFriend(req.user, friend);
-  }catch(error){
+
+    return rSuccess(res, HTTPStatus.OK, strings.friends.removed);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const getFriendRequests = async (req, res) => {
+  try {
+    const user = await UserService.getById(req.params.id);
+
+    if (!user) {
+      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
+    }
+
+    return rSuccess(res, HTTPStatus.OK, user.friendRequests);
+  } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
@@ -131,5 +147,6 @@ module.exports = {
   remove,
   getFriends,
   addFriend,
-  deleteFriend
+  deleteFriend,
+  getFriendRequests
 };

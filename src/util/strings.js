@@ -25,7 +25,8 @@ module.exports = {
     success: 'The item was deleted.'
   },
   friends: {
-    created: 'The users are now friends.'
+    created: 'The users are now friends.',
+    removed: 'The friend was removed.'
   },
   errors: {
     addUser: 'Error while creating user.',

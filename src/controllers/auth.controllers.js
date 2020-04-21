@@ -14,11 +14,11 @@ const login = async (req, res) => {
       return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.notFound);
     }
 
-    if(!user.isActive){
+    if (!user.isActive) {
       return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.notActive);
     }
 
-    if(user.isDeleted){
+    if (user.isDeleted) {
       return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.deleted);
     }
 
