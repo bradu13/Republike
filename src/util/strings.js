@@ -26,6 +26,7 @@ module.exports = {
   },
   friends: {
     created: 'The users are now friends.',
+    createdRequest: 'The friend request was sent.',
     removed: 'The friend was removed.'
   },
   errors: {
@@ -42,6 +43,7 @@ module.exports = {
     updateUser: 'Error while updating user',
     inactiveFriend: 'The user needs to confirm his email address before making friends.',
     deletedFriend: 'This user was deleted.',
+    alreadyFriends: 'They are already friends.',
     noFriends: 'This user has no friends.',
     friendNotFound: 'This user is not his friend.'
   }

@@ -6,6 +6,7 @@ module.exports = {
     try {
       return await UserModel.create(user);
     } catch (error) {
+      console.log(error);
       switch (error.name) {
         case 'SequelizeUniqueConstraintError':
           throw strings.errors.duplicateUser;
@@ -56,9 +57,19 @@ module.exports = {
       user.friends = [];
     }
 
+    if (!Array.isArray(friend.friends)) {
+      friend.friends = [];
+    }
+
+    if (user.friends.includes(friend.id)){
+      throw strings.errors.alreadyFriends;
+    }
+
     user.friends.push(friend.id);
+    friend.friends.push(user.id);
 
     await user.save();
+    await friend.save();
   },
   deleteFriend: async (user, friend) => {
     if (!Array.isArray(user.friends)) {
@@ -69,9 +80,29 @@ module.exports = {
       throw strings.errors.friendNotFound;
     }
 
-    const index = user.friends.indexOf(friend.id);
+    const indexUser = user.friends.indexOf(friend.id);
+    const indexFriend = friend.friends.indexOf(user.id);
 
-    user.friends.splice(index, 1);
+    user.friends.splice(indexUser, 1);
+    friend.friends.splice(indexFriend, 1);
+
+    await user.save();
+    await friend.save();
+  },
+  addFriendRequest: async (user, friend) => {
+    if (!friend.isActive) {
+      throw strings.errors.inactiveFriend;
+    }
+
+    if (friend.isDeleted) {
+      throw strings.errors.deletedFriend;
+    }
+
+    if (!Array.isArray(user.friendRequests)) {
+      user.friendRequests = [];
+    }
+
+    user.friendRequests.push(friend.id);
 
     await user.save();
   }
