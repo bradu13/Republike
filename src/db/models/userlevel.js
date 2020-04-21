@@ -5,8 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     icon: DataTypes.STRING,
     totalPoints: DataTypes.INTEGER
   }, {});
-  UserLevel.associate = function(models) {
+
+  UserLevel.associate = function (models) {
     // associations can be defined here
   };
+
   return UserLevel;
 };
