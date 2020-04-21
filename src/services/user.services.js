@@ -61,22 +61,22 @@ module.exports = {
       friend.friends = [];
     }
 
-    if (user.friends.includes(friend.id)){
+    if (user.friends.includes(friend.id)) {
       throw strings.errors.alreadyFriends;
     }
 
     user.friends.push(friend.id);
     friend.friends.push(user.id);
 
-    await user.save();
-    await friend.save();
+    await user.update({ friends: user.friends });
+    await friend.update({ friends: friend.friends });
   },
   deleteFriend: async (user, friend) => {
     if (!Array.isArray(user.friends)) {
       throw strings.errors.noFriends;
     }
 
-    if (!user.friends.contains(friend.id)) {
+    if (!user.friends.includes(friend.id)) {
       throw strings.errors.friendNotFound;
     }
 
@@ -86,8 +86,8 @@ module.exports = {
     user.friends.splice(indexUser, 1);
     friend.friends.splice(indexFriend, 1);
 
-    await user.save();
-    await friend.save();
+    await user.update({ friends: user.friends });
+    await friend.update({ friends: friend.friends });
   },
   addFriendRequest: async (user, friend) => {
     if (!friend.isActive) {
