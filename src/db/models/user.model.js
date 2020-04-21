@@ -1,5 +1,6 @@
 'use strict';
 const bcrypt = require('bcrypt');
+const UserSetting = require('./../index').UserSetting;
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -37,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = function (models) {
-    // associations can be defined here
+    User.hasOne(UserSetting);
   };
 
   return User;
