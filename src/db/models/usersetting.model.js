@@ -1,5 +1,4 @@
 'use strict';
-const User = require('./../index').User;
 
 module.exports = (sequelize, DataTypes) => {
   const UserSetting = sequelize.define('UserSetting', {
@@ -20,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   UserSetting.associate = function (models) {
-    UserSetting.belongsTo(User);
+    models.UserSetting.belongsTo(models.User);
   };
   return UserSetting;
 };

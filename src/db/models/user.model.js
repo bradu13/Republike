@@ -1,6 +1,5 @@
 'use strict';
 const bcrypt = require('bcrypt');
-const UserSetting = require('./../index').UserSetting;
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -28,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  User.afterCreate(async (user) => {
+    await sequelize.models.UserSetting.create({ userId: user.id });
+  });
+
   User.prototype.comparePassword = function (passw, cb) {
     bcrypt.compare(passw, this.password, function (err, isMatch) {
       if (err) {
@@ -38,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = function (models) {
-    User.hasOne(UserSetting);
+    models.User.hasOne(models.UserSetting);
   };
 
   return User;
