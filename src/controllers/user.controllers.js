@@ -103,7 +103,23 @@ const addFriend = async(req,res) => {
 
     await UserService.addFriend(req.user,friend);
 
+    return rSuccess(res, HTTPStatus.CREATED, strings.friends.created);
   } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const deleteFriend = async(req, res) => {
+  try{
+    const user = await UserService.getById(req.params.id);
+    const friend = await UserService.getById(req.body.id);
+
+    if (!friend || !user) {
+      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
+    }
+
+    await UserService.deleteFriend(req.user, friend);
+  }catch(error){
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
@@ -114,5 +130,6 @@ module.exports = {
   update,
   remove,
   getFriends,
-  addFriend
+  addFriend,
+  deleteFriend
 };

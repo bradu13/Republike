@@ -24,6 +24,9 @@ module.exports = {
   delete: {
     success: 'The item was deleted.'
   },
+  friends: {
+    created: 'The users are now friends.'
+  },
   errors: {
     addUser: 'Error while creating user.',
     duplicateUser: 'There is another user with this email.',
@@ -37,6 +40,8 @@ module.exports = {
     userEmailRequired: 'The `email` of the user is required.',
     updateUser: 'Error while updating user',
     inactiveFriend: 'The user needs to confirm his email address before making friends.',
-    deletedFriend: 'This user was deleted.'
+    deletedFriend: 'This user was deleted.',
+    noFriends: 'This user has no friends.',
+    friendNotFound: 'This user is not his friend.'
   }
 };

@@ -23,14 +23,14 @@ module.exports = {
   },
   getById: async (id) => {
     try {
-      return await UserModel.findOne({ where: { id } });
+      return await UserModel.findOne({where: {id}});
     } catch (error) {
       throw strings.errors.getUser;
     }
   },
   update: async (id, fields) => {
     try {
-      const user = await UserModel.findOne({ where: { id } });
+      const user = await UserModel.findOne({where: {id}});
 
       if (!user) {
         return user;
@@ -44,20 +44,34 @@ module.exports = {
     }
   },
   addFriend: async (user, friend) => {
-
-    if(!friend.isActive){
+    if (!friend.isActive) {
       throw strings.errors.inactiveFriend;
     }
 
-    if(friend.isDeleted){
+    if (friend.isDeleted) {
       throw strings.errors.deletedFriend;
     }
 
-    if(!Array.isArray(user.friends)){
+    if (!Array.isArray(user.friends)) {
       user.friends = [];
     }
 
     user.friends.push(friend.id);
+
+    await user.save();
+  },
+  deleteFriend: async (user, friend) => {
+    if (!Array.isArray(user.friends)) {
+      throw strings.errors.noFriends;
+    }
+
+    if(!user.friends.contains(friend.id)){
+      throw strings.errors.friendNotFound;
+    }
+
+    const index = user.friends.indexOf(friend.id);
+
+    user.friends.splice(index, 1);
 
     await user.save();
   }

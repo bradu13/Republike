@@ -22,4 +22,7 @@ router.get('/:id/friends', validateAuth.jwt, UserController.getFriends);
 // Add new friend
 router.post('/:id/friends', validateAuth.jwt, UserController.addFriend);
 
+// Delete friend
+router.delete('/:id/friends', validateAuth.jwt, UserController.deleteFriend);
+
 module.exports = router;
