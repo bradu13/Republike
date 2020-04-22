@@ -51,7 +51,8 @@ module.exports = {
     friendNotFound: 'This user is not his friend.',
     friendRequestNotFound: 'There is no such friend request from this user.',
     friendRequestAlreadySent: 'There is another friend request pending.',
-    notificationCreateError: 'Error when creating new notification.'
+    notificationCreateError: 'Error when creating new notification.',
+    notificationGet: 'Error when getting the notifications.'
   },
   notifications: {
     friendRequest: {
