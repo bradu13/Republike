@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function (models) {
     models.User.hasMany(models.UserSetting);
+    models.User.hasmany(models.Notification);
   };
 
   return User;
