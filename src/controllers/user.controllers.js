@@ -1,3 +1,4 @@
+const NotificationController = require('../controllers/notification.controllers');
 const UserService = require('../services/user.services');
 const MailService = require('../services/mail.services');
 const HTTPStatus = require('http-status-codes');
@@ -101,7 +102,7 @@ const addFriend = async (req, res) => {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
     }
 
-    await UserService.addFriend(req.user, friend);
+    await UserService.addFriend(user, friend);
 
     return rSuccess(res, HTTPStatus.CREATED, strings.friends.created);
   } catch (error) {
@@ -118,7 +119,7 @@ const deleteFriend = async (req, res) => {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
     }
 
-    await UserService.deleteFriend(req.user, friend);
+    await UserService.deleteFriend(user, friend);
 
     return rSuccess(res, HTTPStatus.OK, strings.friends.removed);
   } catch (error) {
@@ -142,14 +143,18 @@ const getFriendRequests = async (req, res) => {
 
 const addFriendRequest = async (req, res) => {
   try {
+    // get the users
     const user = await UserService.getById(req.params.id);
     const friend = await UserService.getById(req.body.id);
 
+    // check existence
     if (!friend || !user) {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
     }
 
-    await UserService.addFriendRequest(req.user, friend);
+    // sent the friend request and then notify the user
+    await UserService.addFriendRequest(user, friend);
+    await NotificationController.friendRequest(user);
 
     return rSuccess(res, HTTPStatus.CREATED, strings.friends.createdRequest);
   } catch (error) {
@@ -166,7 +171,7 @@ const deleteFriendRequest = async (req, res) => {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
     }
 
-    await UserService.deleteFriendRequest(req.user, friend);
+    await UserService.deleteFriendRequest(user, friend);
 
     return rSuccess(res, HTTPStatus.CREATED, strings.friends.removedRequest);
   } catch (error) {
