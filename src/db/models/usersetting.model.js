@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     contentOvertaken: DataTypes.BOOLEAN,
     grade: DataTypes.BOOLEAN,
     suggestedBattles: DataTypes.BOOLEAN,
-    userId: {
+    UserId: {
       type: DataTypes.UUID,
       references: 'users',
       referencesKey: 'id'

@@ -58,7 +58,7 @@ module.exports = {
         allowNull: false,
         defaultValue: true
       },
-      userId: {
+      UserId: {
         type: Sequelize.UUID,
         allowNull: false
       },
