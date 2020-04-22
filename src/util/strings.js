@@ -34,6 +34,7 @@ module.exports = {
     addUser: 'Error while creating user.',
     duplicateUser: 'There is another user with this email.',
     getUser: 'Error while getting the user.',
+    getUserSetting: 'Error while getting the user settings.',
     noToken: 'No token was provided.',
     failToken: 'Failed to authenticate token.',
     noUser: 'No user was found.',
@@ -48,6 +49,7 @@ module.exports = {
     noFriends: 'This user has no friends.',
     noFriendRequests: 'This user has no friend requests.',
     friendNotFound: 'This user is not his friend.',
-    friendRequestNotFound: 'There is no such friend request from this user.'
+    friendRequestNotFound: 'There is no such friend request from this user.',
+    friendRequestAlreadySent: 'There is another friend request pending.'
   }
 };
