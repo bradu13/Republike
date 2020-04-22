@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.afterCreate(async (user) => {
-    await sequelize.models.UserSetting.create({ userId: user.id });
+    await sequelize.models.UserSetting.create({ type: 1, userId: user.id });
+    await sequelize.models.UserSetting.create({ type: 2, userId: user.id });
   });
 
   User.prototype.comparePassword = function (passw, cb) {
@@ -41,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = function (models) {
-    models.User.hasOne(models.UserSetting);
+    models.User.hasMany(models.UserSetting);
   };
 
   return User;
