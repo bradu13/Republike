@@ -43,6 +43,7 @@ module.exports = {
     userIdRequired: 'The `id` of the user is required.',
     userEmailRequired: 'The `email` of the user is required.',
     updateUser: 'Error while updating user',
+    deletedUser: 'This user was deleted.',
     inactiveFriend: 'The user needs to confirm his email address before making friends.',
     deletedFriend: 'This user was deleted.',
     alreadyFriends: 'They are already friends.',
