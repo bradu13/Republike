@@ -6,6 +6,7 @@ const strings = require('../util/strings');
 const rError = require('../util/error');
 const rSuccess = require('../util/success');
 
+// Get all the notifications
 const getAll = async (req, res) => {
   try {
     const notifications = await NotificationService.get(req.user);
@@ -16,6 +17,7 @@ const getAll = async (req, res) => {
   }
 };
 
+// Notify new friend request
 const friendRequest = async (user) => {
   const settings = await UserSettingService.getByUserId(user.id);
 
@@ -31,6 +33,7 @@ const friendRequest = async (user) => {
     });
   }
 
+  // create notification
   if (settings.notification.friendRequest) {
     await NotificationService.friendRequest(user);
   }
