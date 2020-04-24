@@ -31,24 +31,27 @@ const handlebarsOptions = {
 // Combine smtp with hbs
 smtpTransport.use('compile', hbs(handlebarsOptions));
 
+// Send mail
+const send = (options) => {
+  // Prepare data
+  const data = {
+    to: options.to.join(),
+    from: mailerUser,
+    template: options.template,
+    subject: options.subject,
+    context: options.templateVars
+  };
+
+  // Send and catch errors
+  smtpTransport.sendMail(data, (error) => {
+    if (!error) {
+      console.log(error);
+    }
+
+    return true;
+  });
+};
+
 module.exports = {
-  send: (options) => {
-    console.log(options);
-
-    const data = {
-      to: options.to.join(),
-      from: mailerUser,
-      template: options.template,
-      subject: options.subject,
-      context: options.templateVars
-    };
-
-    smtpTransport.sendMail(data, (error) => {
-      if (!error) {
-        console.log(error);
-      }
-
-      return true;
-    });
-  }
+  send
 };
