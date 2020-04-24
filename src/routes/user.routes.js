@@ -31,6 +31,9 @@ router.get('/:id/friendrequests', validateAuth.jwt, UserController.getFriendRequ
 // Add friend request
 router.post('/:id/friendrequests', validateAuth.jwt, UserController.addFriendRequest);
 
+// Accept friend request
+router.patch('/:id/friendrequests', validateAuth.jwt, UserController.acceptFriendRequest);
+
 // Delete friend request
 router.delete('/:id/friendrequests', validateAuth.jwt, UserController.deleteFriendRequest);
 

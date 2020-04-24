@@ -25,7 +25,7 @@ const friendRequest = async (user) => {
   if (settings.email.friendRequest) {
     MailService.send({
       to: [user.email],
-      subject: strings.email.newUser,
+      subject: strings.notifications.friendRequest.title,
       template: 'new-friend-request',
       templateVars: {
         name: user.email
@@ -39,7 +39,30 @@ const friendRequest = async (user) => {
   }
 };
 
+// Notify accepted friend request
+const friendRequestAccepted = async (user) => {
+  const settings = await UserSettingService.getByUserId(user.id);
+
+  // send email
+  if (settings.email.friendRequestAccepted) {
+    MailService.send({
+      to: [user.email],
+      subject: strings.notifications.friendRequestAccepted.title,
+      template: 'friend-request-accepted',
+      templateVars: {
+        name: user.email
+      }
+    });
+  }
+
+  // create notification
+  if (settings.notification.friendRequestAccepted) {
+    await NotificationService.friendRequestAccepted(user);
+  }
+};
+
 module.exports = {
   getAll,
-  friendRequest
+  friendRequest,
+  friendRequestAccepted
 };

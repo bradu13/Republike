@@ -219,6 +219,29 @@ const deleteFriendRequest = async (req, res) => {
   }
 };
 
+// Accept friend request
+const acceptFriendRequest = async (req, res) => {
+  try {
+    // Get the users
+    const user = await UserService.getById(req.params.id);
+    const friend = await UserService.getById(req.body.id);
+
+    // Validate
+    if (!friend || !user) {
+      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUser);
+    }
+
+    // Accepted the friend request
+    await UserService.acceptFriendRequest(user, friend);
+    await NotificationController.acceptFriendRequest(friend);
+
+    // Send message
+    return rSuccess(res, HTTPStatus.OK, strings.friends.acceptedRequest);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
 module.exports = {
   add,
   get,
@@ -229,5 +252,6 @@ module.exports = {
   deleteFriend,
   getFriendRequests,
   addFriendRequest,
+  acceptFriendRequest,
   deleteFriendRequest
 };

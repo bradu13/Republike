@@ -28,7 +28,8 @@ module.exports = {
     created: 'The users are now friends.',
     createdRequest: 'The friend request was sent.',
     removedRequest: 'The friend request was removed.',
-    removed: 'The friend was removed.'
+    removed: 'The friend was removed.',
+    acceptedRequest: 'The friend request was accepted.'
   },
   errors: {
     addUser: 'Error while creating user.',
@@ -59,6 +60,10 @@ module.exports = {
     friendRequest: {
       title: 'New friend request',
       description: 'You have a new friend request pending.'
+    },
+    friendRequestAccepted: {
+      title: 'Friend request accepted',
+      description: 'You\'re friend request was accepted.'
     }
   }
 };

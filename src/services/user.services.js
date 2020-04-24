@@ -167,6 +167,59 @@ const deleteFriendRequest = async (user, friend) => {
   await user.update({ friendRequests: user.friendRequests });
 };
 
+// Accept friend request
+const acceptFriendRequest = async (user, friend) => {
+  // check if the friend is active
+  if (!friend.isActive) {
+    throw strings.errors.inactiveFriend;
+  }
+
+  // check if the friend is not deleted
+  if (friend.isDeleted) {
+    throw strings.errors.deletedFriend;
+  }
+
+  // check if the default value was changed
+  if (!Array.isArray(user.friendRequests)) {
+    throw strings.errors.noFriendRequests;
+  }
+
+  // check if the friend request was sent
+  if (!user.friendRequests.includes(friend.id)) {
+    throw strings.errors.friendRequestNotFound;
+  }
+
+  // get the index
+  const indexUser = user.friendRequests.indexOf(friend.id);
+
+  // remove the friend request
+  user.friendRequests.splice(indexUser, 1);
+
+  // we have to check both ways
+  if (Array.isArray(friend.friendRequests)) {
+    if (friend.friendRequests.includes(user.id)) {
+      const indexFriend = friend.friendRequests.indexOf(user.id);
+      friend.friendRequests.splice(indexFriend, 1);
+    }
+  }
+
+  // normalize arrays
+  if (!Array.isArray(user.friends)) {
+    user.friends = [];
+  }
+  if (!Array.isArray(friend.friends)) {
+    friend.friends = [];
+  }
+
+  // make the connection
+  user.friends.push(friend.id);
+  friend.friends.push(user.id);
+
+  // save the users
+  await user.update({ friendRequests: user.friendRequests, friends: user.friends });
+  await friend.update({ friends: friend.friends, friendRequests: friend.friendRequests });
+};
+
 module.exports = {
   add,
   get,
@@ -175,5 +228,6 @@ module.exports = {
   addFriend,
   deleteFriend,
   addFriendRequest,
-  deleteFriendRequest
+  deleteFriendRequest,
+  acceptFriendRequest
 };

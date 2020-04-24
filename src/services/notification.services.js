@@ -24,7 +24,22 @@ const friendRequest = async (user) => {
   }
 };
 
+// Create the friend  request accepted notification
+const friendRequestAccepted = async (user) => {
+  try {
+    await NotificationModel.create({
+      type: 1,
+      title: strings.notifications.friendRequestAccepted.title,
+      description: strings.notifications.friendRequestAccepted.description,
+      UserId: user.id
+    });
+  } catch (error) {
+    throw strings.errors.notificationCreateError;
+  }
+};
+
 module.exports = {
   get,
-  friendRequest
+  friendRequest,
+  friendRequestAccepted
 };
