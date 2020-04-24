@@ -146,7 +146,7 @@ const addFriendRequest = async (user, friend) => {
 };
 
 // Delete friend request
-const deleteFriendRequest =  async (user, friend) => {
+const deleteFriendRequest = async (user, friend) => {
   // check if the default value was changed
   if (!Array.isArray(user.friendRequests)) {
     throw strings.errors.noFriendRequests;

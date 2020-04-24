@@ -81,7 +81,6 @@ const activate = async (req, res) => {
 
 // Forgot Password
 const forgot = async (req, res) => {
-
   // Validate body
   if (!req.body.email) {
     return rError(res, HTTPStatus.BAD_REQUEST, strings.errors.userEmailRequired);
@@ -96,7 +95,7 @@ const forgot = async (req, res) => {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
     }
 
-    if(user.isDeleted){
+    if (user.isDeleted) {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.deletedUser);
     }
 
@@ -139,7 +138,7 @@ const reset = async (req, res) => {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
     }
 
-    if(user.isDeleted){
+    if (user.isDeleted) {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.deletedUser);
     }
 

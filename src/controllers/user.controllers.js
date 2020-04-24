@@ -10,7 +10,6 @@ const rSuccess = require('../util/success');
 // Add user
 const add = async (req, res) => {
   try {
-
     // Call the service
     const user = await UserService.add({
       email: req.body.email,
