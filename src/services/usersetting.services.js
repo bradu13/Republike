@@ -13,6 +13,15 @@ const getByUserId = async (id) => {
   }
 };
 
+const getByUserIdWithType = async (id, type) => {
+  try{
+    return await UserSettingModel.findOne({ where: { UserId: id, type: type } });
+  } catch (error) {
+    throw strings.errors.getUserSetting;
+  }
+};
+
 module.exports = {
-  getByUserId
+  getByUserId,
+  getByUserIdWithType
 };
