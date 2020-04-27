@@ -233,7 +233,7 @@ const acceptFriendRequest = async (req, res) => {
 
     // Accepted the friend request
     await UserService.acceptFriendRequest(user, friend);
-    await NotificationController.acceptFriendRequest(friend);
+    await NotificationController.friendRequestAccepted(friend);
 
     // Send message
     return rSuccess(res, HTTPStatus.OK, strings.friends.acceptedRequest);
