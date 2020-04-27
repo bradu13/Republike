@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     icon: DataTypes.STRING
   }, {});
   Theme.associate = function (models) {
-    // associations can be defined here
+    models.Theme.belongsToMany(models.Battle);
   };
   return Theme;
 };
