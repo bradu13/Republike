@@ -15,4 +15,3 @@ module.exports = Joi.object({
   grade: Joi.boolean(),
   suggestedBattles: Joi.boolean()
 });
-

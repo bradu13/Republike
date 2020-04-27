@@ -5,17 +5,17 @@ const rError = require('../util/error');
 const rSuccess = require('../util/success');
 
 const updateUserSetting = async (req, res) => {
-  try{
+  try {
     const setting = await UserSettingService.getByUserIdWithType(req.body.UserId, req.body.type);
 
-    if(!setting){
+    if (!setting) {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noUserSetting);
     }
 
     await setting.update(req.body);
 
     return rSuccess(res, HTTPStatus.OK, setting);
-  } catch (error){
+  } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };

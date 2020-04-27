@@ -31,7 +31,7 @@ const userSettingUpdate = async (req, res, next) => {
 
   const result = UserSettingSchema.validate(userSetting);
 
-  if (!result.error){
+  if (!result.error) {
     return next();
   }
 
