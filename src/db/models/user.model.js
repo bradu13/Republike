@@ -17,9 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     favouritePosts: DataTypes.ARRAY(DataTypes.UUID),
     friends: DataTypes.ARRAY(DataTypes.UUID),
     friendRequests: DataTypes.ARRAY(DataTypes.UUID),
-    isActive: DataTypes.BOOLEAN,
-    isDeleted: DataTypes.BOOLEAN
-  }, {});
+    isActive: DataTypes.BOOLEAN
+  }, {
+    paranoid: true
+  });
 
   User.beforeSave((user) => {
     if (user.changed('password')) {
@@ -28,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.afterCreate(async (user) => {
-    await sequelize.models.UserSetting.create({ type: 1, userId: user.id });
-    await sequelize.models.UserSetting.create({ type: 2, userId: user.id });
+    await sequelize.models.UserSetting.create({ type: 1, UserId: user.id });
+    await sequelize.models.UserSetting.create({ type: 2, UserId: user.id });
   });
 
   User.prototype.comparePassword = function (passw, cb) {

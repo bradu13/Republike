@@ -56,9 +56,7 @@ const update = Joi.object({
       userId: Joi.string().required()
     })),
 
-  isActive: Joi.boolean(),
-
-  isDeleted: Joi.boolean()
+  isActive: Joi.boolean()
 });
 
 const create = update.keys({

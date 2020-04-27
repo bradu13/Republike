@@ -22,11 +22,6 @@ const login = async (req, res) => {
       return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.notActive);
     }
 
-    // Check if is deleted
-    if (user.isDeleted) {
-      return rError(res, HTTPStatus.UNAUTHORIZED, strings.login.deleted);
-    }
-
     // Check the password
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (isMatch && !err) {
@@ -95,10 +90,6 @@ const forgot = async (req, res) => {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
     }
 
-    if (user.isDeleted) {
-      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.deletedUser);
-    }
-
     // Create the url and the token
     const url = req.protocol + '://' + req.get('host');
     const forgotToken = jwt.sign(JSON.parse(JSON.stringify({
@@ -136,10 +127,6 @@ const reset = async (req, res) => {
     // Validate user
     if (!user) {
       return rError(res, HTTPStatus.NO_CONTENT, strings.errors.noUser);
-    }
-
-    if (user.isDeleted) {
-      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.deletedUser);
     }
 
     // Change the password and save

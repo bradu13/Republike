@@ -6,6 +6,8 @@ const add = async (user) => {
   try {
     return await UserModel.create(user);
   } catch (error) {
+    console.log(error);
+
     switch (error.name) {
       case 'SequelizeUniqueConstraintError':
         throw strings.errors.duplicateUser;
@@ -55,11 +57,6 @@ const addFriend = async (user, friend) => {
   // check if the friend is active
   if (!friend.isActive) {
     throw strings.errors.inactiveFriend;
-  }
-
-  // check if the friend is not deleted
-  if (friend.isDeleted) {
-    throw strings.errors.deletedFriend;
   }
 
   // by default this is null
@@ -118,11 +115,6 @@ const addFriendRequest = async (user, friend) => {
     throw strings.errors.inactiveFriend;
   }
 
-  // check if the friend is not deleted
-  if (friend.isDeleted) {
-    throw strings.errors.deletedFriend;
-  }
-
   // by default the database stores a null value
   if (!Array.isArray(user.friendRequests)) {
     user.friendRequests = [];
@@ -172,11 +164,6 @@ const acceptFriendRequest = async (user, friend) => {
   // check if the friend is active
   if (!friend.isActive) {
     throw strings.errors.inactiveFriend;
-  }
-
-  // check if the friend is not deleted
-  if (friend.isDeleted) {
-    throw strings.errors.deletedFriend;
   }
 
   // check if the default value was changed
