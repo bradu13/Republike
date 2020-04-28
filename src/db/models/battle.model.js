@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }),
 
     views: DataTypes.ARRAY({
-        type: DataTypes.UUID,
-        references: 'users',
-        referencesKey: 'id'
-      }),
+      type: DataTypes.UUID,
+      references: 'users',
+      referencesKey: 'id'
+    }),
 
     ThemeId: {
       type: DataTypes.INTEGER,
@@ -30,10 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       references: 'users',
       referencesKey: 'id'
     }
-  }, {});
-  Battle.associate = function(models) {
-     models.Battle.belongsTo(models.User);
-     models.Battle.hasOne(models.Theme);
+  }, {
+    paranoid: true
+  });
+  Battle.associate = function (models) {
+    models.Battle.belongsTo(models.User);
+    models.Battle.hasOne(models.Theme);
   };
   return Battle;
 };

@@ -33,16 +33,14 @@ module.exports = {
         defaultValue: 0
       },
       shares: {
-        type: Sequelize.ARRAY(Sequelize.UUID),
-        defaultValue: '{}'
+        type: Sequelize.ARRAY(Sequelize.UUID)
       },
       views: {
-        type: Sequelize.ARRAY(Sequelize.UUID),
-        defaultValue: '{}'
+        type: Sequelize.ARRAY(Sequelize.UUID)
       },
       UserId: {
         type: Sequelize.UUID,
-        allowNull: false,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -57,7 +55,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Battles');
   }
 };

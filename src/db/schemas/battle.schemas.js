@@ -7,27 +7,13 @@ const update = Joi.object({
 
   type: Joi.number().min(1).max(4),
 
-  ThemeId: Joi.number(),
-
-  likeAmount: Joi.number(),
-
-  postAmount: Joi.number(),
-
-  shares: Joi.array()
-    .items(Joi.object({
-      UserId: Joi.uuid().required()
-    })),
-
-  views: Joi.array()
-    .items(Joi.object({
-      UserId: Joi.uuid().required()
-    })),
+  ThemeId: Joi.number()
 });
 
 const create = update.keys({
   name: Joi.string().min(3).max(30).required(),
   type: Joi.number().min(1).max(4).required(),
-  ThemeId: Joi.number.required()
+  ThemeId: Joi.number().required()
 });
 
 module.exports = {
