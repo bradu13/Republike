@@ -8,8 +8,12 @@ router.get('/', validateAuth.jwt, BattleController.getAll);
 
 router.post('/', validateAuth.jwt, validateSchema.battleAdd, BattleController.add);
 
-router.put('/:id', validateAuth.jwt, validateSchema.battleUpdate, BattleController.update);
+router.put('/:id', validateAuth.jwt, validateSchema.battleUpdate, BattleController.verify, BattleController.update);
 
-router.delete('/:id', validateAuth.jwt, BattleController.remove);
+router.delete('/:id', validateAuth.jwt, BattleController.verify, BattleController.remove);
+
+router.post('/:id/view', validateAuth.jwt, BattleController.verify, BattleController.view);
+
+router.post('/:id/share', validateAuth.jwt, BattleController.verify, BattleController.share);
 
 module.exports = router;

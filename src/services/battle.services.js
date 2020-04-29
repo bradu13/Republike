@@ -25,8 +25,38 @@ const add = async (battle) => {
   }
 };
 
+const view = async (battle, user) => {
+  if (!Array.isArray(battle.views)) {
+    battle.views = [];
+  }
+
+  if (battle.views.includes(user.id)) {
+    return null;
+  }
+
+  battle.views.push(user.id);
+
+  await battle.update({ views: battle.views });
+};
+
+const share = async (battle, user) => {
+  if (!Array.isArray(battle.shares)) {
+    battle.shares = [];
+  }
+
+  if (battle.shares.includes(user.id)) {
+    return null;
+  }
+
+  battle.shares.push(user.id);
+
+  await battle.update({ shares: battle.shares });
+};
+
 module.exports = {
   getAll,
   getById,
-  add
+  add,
+  view,
+  share
 };

@@ -27,7 +27,7 @@ const add = async (req, res) => {
   }
 };
 
-const update = async (req, res) => {
+const verify = async (req, res, next) => {
   const battleId = req.params.id;
 
   try {
@@ -37,35 +37,57 @@ const update = async (req, res) => {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattle);
     }
 
-    if (battle.UserId !== req.user.id) {
+    req.battle = battle;
+
+    next();
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const update = async (req, res) => {
+  try {
+    if (req.battle.UserId !== req.user.id) {
       return rError(res, HTTPStatus.UNAUTHORIZED, strings.errors.noBattleEditPermission);
     }
 
-    await battle.update(req.body);
+    await req.battle.update(req.body);
 
-    return rSuccess(res, HTTPStatus.OK, battle);
+    return rSuccess(res, HTTPStatus.OK, req.battle);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
 
 const remove = async (req, res) => {
-  const battleId = req.params.id;
-
   try {
-    const battle = await BattleService.getById(battleId);
-
-    if (!battle) {
-      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattle);
-    }
-
-    if (battle.UserId !== req.user.id) {
+    if (req.battle.UserId !== req.user.id) {
       return rError(res, HTTPStatus.UNAUTHORIZED, strings.errors.noBattleEditPermission);
     }
 
-    await battle.destroy();
+    await req.battle.destroy();
 
     return rSuccess(res, HTTPStatus.OK, strings.delete.success);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const view = async (req, res) => {
+  try {
+    await BattleService.view(req.battle, req.user);
+
+    return rSuccess(res, HTTPStatus.OK, req.battle.views.length);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const share = async (req, res) => {
+  try {
+    await BattleService.share(req.battle, req.user);
+
+    return rSuccess(res, HTTPStatus.OK, req.battle.shares.length);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
@@ -74,6 +96,9 @@ const remove = async (req, res) => {
 module.exports = {
   getAll,
   add,
+  verify,
   update,
-  remove
+  remove,
+  view,
+  share
 };
