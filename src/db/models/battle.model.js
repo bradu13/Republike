@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   Battle.associate = function (models) {
     models.Battle.belongsTo(models.User);
     models.Battle.hasOne(models.Theme);
+    models.Battle.hasMany(models.BattlePost);
   };
   return Battle;
 };
