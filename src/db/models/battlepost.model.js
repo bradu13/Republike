@@ -2,8 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const BattlePost = sequelize.define('BattlePost', {
     title: DataTypes.STRING,
-    link: DataTypes.STRING,
-    mediaFilePath: DataTypes.STRING,
+    image: DataTypes.INTEGER,
 
     likes: DataTypes.ARRAY({
       type: DataTypes.UUID,
@@ -47,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     models.BattlePost.belongsTo(models.User);
     models.BattlePost.belongsTo(models.Battle);
     models.BattlePost.hasMany(models.Comment);
+    models.BattlePost.hasOne(models.Image);
   };
   return BattlePost;
 };

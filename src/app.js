@@ -11,8 +11,10 @@ require('./config/passport')(passport);
 const usersRouter = require('./routes/user.routes');
 const authRouter = require('./routes/auth.routes');
 const battleRouter = require('./routes/battle.routes');
+const battlePostRouter = require('./routes/battlepost.routes');
 const notificationRouter = require('./routes/notification.routes');
 const userSettingRouter = require('./routes/usersetting.routes');
+const imageRouter = require('./routes/image.routes');
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.use('/auth', authRouter);
 app.use('/notifications', notificationRouter);
 app.use('/usersetting', userSettingRouter);
 app.use('/battles', battleRouter);
+app.use('/battleposts', battlePostRouter);
+app.use('/images', imageRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res) {

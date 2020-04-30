@@ -1,5 +1,6 @@
 const UserSchema = require('../db/schemas/user.schemas');
 const BattleSchema = require('../db/schemas/battle.schemas');
+const BattlePostSchema = require('../db/schemas/battlepost.schemas');
 const UserSettingSchema = require('../db/schemas/usersetting.schemas');
 const HTTPStatus = require('http-status-codes');
 const rError = require('../util/error');
@@ -63,10 +64,36 @@ const battleUpdate = async (req, res, next) => {
   return rError(res, HTTPStatus.BAD_REQUEST, result.error);
 };
 
+const battlePostAdd = async (req, res, next) => {
+  const battlePost = req.body;
+
+  const result = BattlePostSchema.create.validate(battlePost);
+
+  if (!result.error) {
+    return next();
+  }
+
+  return rError(res, HTTPStatus.BAD_REQUEST, result.error);
+};
+
+const battlePostUpdate = async (req, res, next) => {
+  const battle = req.body;
+
+  const result = BattlePostSchema.update.validate(battle);
+
+  if (!result.error) {
+    return next();
+  }
+
+  return rError(res, HTTPStatus.BAD_REQUEST, result.error);
+};
+
 module.exports = {
   userAdd,
   userUpdate,
   userSettingUpdate,
   battleAdd,
-  battleUpdate
+  battleUpdate,
+  battlePostAdd,
+  battlePostUpdate
 };

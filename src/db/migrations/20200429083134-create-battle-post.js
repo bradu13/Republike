@@ -13,11 +13,9 @@ module.exports = {
         required: true,
         allowNull: false
       },
-      link: {
-        type: Sequelize.STRING
-      },
-      mediaFilePath: {
-        type: Sequelize.STRING
+      image: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       likes: {
         type: Sequelize.ARRAY(Sequelize.UUID)

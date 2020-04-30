@@ -51,6 +51,9 @@
         •	GET /search/
         •	PUT /usersettings/
         •	
+        •	POST /images/
+        •	GET /images/{id}/
+        •	
         •   POST /users/
         •   GET /users/{id}/
         •	PUT /users/{id}/

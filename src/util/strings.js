@@ -34,6 +34,7 @@ module.exports = {
   errors: {
     addUser: 'Error while creating user.',
     addBattle: 'Error while creating a battle.',
+    addBattlePost: 'Error while creating a battle post.',
     duplicateUser: 'There is another user with this email.',
     getUser: 'Error while getting the user.',
     getBattle: 'Error while getting the battle.',
