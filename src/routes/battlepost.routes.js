@@ -6,4 +6,10 @@ const validateAuth = require('../middleware/auth');
 
 router.post('/', validateAuth.jwt, validateSchema.battlePostAdd, BattlePostController.add);
 
+router.get('/:id/', validateAuth.jwt, BattlePostController.get);
+
+router.put('/:id/', validateAuth.jwt, validateSchema.battlePostUpdate, BattlePostController.update);
+
+router.delete('/:id/', validateAuth.jwt, BattlePostController.remove);
+
 module.exports = router;

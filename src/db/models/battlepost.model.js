@@ -2,7 +2,11 @@
 module.exports = (sequelize, DataTypes) => {
   const BattlePost = sequelize.define('BattlePost', {
     title: DataTypes.STRING,
-    image: DataTypes.INTEGER,
+    ImageId: {
+      type: DataTypes.INTEGER,
+      references: 'images',
+      referencesKey: 'id'
+    },
 
     likes: DataTypes.ARRAY({
       type: DataTypes.UUID,
@@ -46,7 +50,10 @@ module.exports = (sequelize, DataTypes) => {
     models.BattlePost.belongsTo(models.User);
     models.BattlePost.belongsTo(models.Battle);
     models.BattlePost.hasMany(models.Comment);
-    models.BattlePost.hasOne(models.Image);
+    models.BattlePost.hasOne(models.Image, {
+      as: 'image',
+      foreignKeyConstraint: true
+    });
   };
   return BattlePost;
 };
