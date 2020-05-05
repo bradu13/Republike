@@ -6,8 +6,6 @@ const add = async (user) => {
   try {
     return await UserModel.create(user);
   } catch (error) {
-    console.log(error);
-
     switch (error.name) {
       case 'SequelizeUniqueConstraintError':
         throw strings.errors.duplicateUser;
@@ -59,16 +57,6 @@ const addFriend = async (user, friend) => {
     throw strings.errors.inactiveFriend;
   }
 
-  // by default this is null
-  if (!Array.isArray(user.friends)) {
-    user.friends = [];
-  }
-
-  // by default this is null
-  if (!Array.isArray(friend.friends)) {
-    friend.friends = [];
-  }
-
   // check if they are friends
   if (user.friends.includes(friend.id)) {
     throw strings.errors.alreadyFriends;
@@ -85,11 +73,6 @@ const addFriend = async (user, friend) => {
 
 // Delete friend
 const deleteFriend = async (user, friend) => {
-  // check if the user has any friends
-  if (!Array.isArray(user.friends)) {
-    throw strings.errors.noFriends;
-  }
-
   // check if they are friends
   if (!user.friends.includes(friend.id)) {
     throw strings.errors.friendNotFound;
@@ -115,18 +98,13 @@ const addFriendRequest = async (user, friend) => {
     throw strings.errors.inactiveFriend;
   }
 
-  // by default the database stores a null value
-  if (!Array.isArray(user.friendRequests)) {
-    user.friendRequests = [];
-  }
-
   // check if friend request was already sent
   if (user.friendRequests.includes(friend.id)) {
     throw strings.errors.friendRequestAlreadySent;
   }
 
   // check if they are friends
-  if (Array.isArray(user.friends) && user.friends.includes(friend.id)) {
+  if (user.friends.includes(friend.id)) {
     throw strings.errors.alreadyFriends;
   }
 
@@ -139,11 +117,6 @@ const addFriendRequest = async (user, friend) => {
 
 // Delete friend request
 const deleteFriendRequest = async (user, friend) => {
-  // check if the default value was changed
-  if (!Array.isArray(user.friendRequests)) {
-    throw strings.errors.noFriendRequests;
-  }
-
   // check if the friend request was sent
   if (!user.friendRequests.includes(friend.id)) {
     throw strings.errors.friendRequestNotFound;
@@ -166,11 +139,6 @@ const acceptFriendRequest = async (user, friend) => {
     throw strings.errors.inactiveFriend;
   }
 
-  // check if the default value was changed
-  if (!Array.isArray(user.friendRequests)) {
-    throw strings.errors.noFriendRequests;
-  }
-
   // check if the friend request was sent
   if (!user.friendRequests.includes(friend.id)) {
     throw strings.errors.friendRequestNotFound;
@@ -183,19 +151,9 @@ const acceptFriendRequest = async (user, friend) => {
   user.friendRequests.splice(indexUser, 1);
 
   // we have to check both ways
-  if (Array.isArray(friend.friendRequests)) {
-    if (friend.friendRequests.includes(user.id)) {
-      const indexFriend = friend.friendRequests.indexOf(user.id);
-      friend.friendRequests.splice(indexFriend, 1);
-    }
-  }
-
-  // normalize arrays
-  if (!Array.isArray(user.friends)) {
-    user.friends = [];
-  }
-  if (!Array.isArray(friend.friends)) {
-    friend.friends = [];
+  if (friend.friendRequests.includes(user.id)) {
+    const indexFriend = friend.friendRequests.indexOf(user.id);
+    friend.friendRequests.splice(indexFriend, 1);
   }
 
   // make the connection

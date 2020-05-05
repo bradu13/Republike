@@ -31,6 +31,24 @@ module.exports = (sequelize, DataTypes) => {
   User.afterCreate(async (user) => {
     await sequelize.models.UserSetting.create({ type: 1, UserId: user.id });
     await sequelize.models.UserSetting.create({ type: 2, UserId: user.id });
+
+    if (user.friends === null) {
+      user.friends = [];
+    }
+
+    if (user.friendRequests === null) {
+      user.friendRequests = [];
+    }
+
+    if (user.interestedIn === null) {
+      user.interestedIn = [];
+    }
+
+    if (user.favouritePosts === null) {
+      user.favouritePosts = [];
+    }
+
+    await user.save();
   });
 
   User.prototype.comparePassword = function (passw, cb) {
