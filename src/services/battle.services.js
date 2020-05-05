@@ -26,10 +26,6 @@ const add = async (battle) => {
 };
 
 const view = async (battle, user) => {
-  if (!Array.isArray(battle.views)) {
-    battle.views = [];
-  }
-
   if (battle.views.includes(user.id)) {
     return null;
   }
@@ -40,10 +36,6 @@ const view = async (battle, user) => {
 };
 
 const share = async (battle, user) => {
-  if (!Array.isArray(battle.shares)) {
-    battle.shares = [];
-  }
-
   if (battle.shares.includes(user.id)) {
     return null;
   }

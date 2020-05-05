@@ -32,21 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     await sequelize.models.UserSetting.create({ type: 1, UserId: user.id });
     await sequelize.models.UserSetting.create({ type: 2, UserId: user.id });
 
-    if (user.friends === null) {
-      user.friends = [];
-    }
-
-    if (user.friendRequests === null) {
-      user.friendRequests = [];
-    }
-
-    if (user.interestedIn === null) {
-      user.interestedIn = [];
-    }
-
-    if (user.favouritePosts === null) {
-      user.favouritePosts = [];
-    }
+    user.friends = [];
+    user.friendRequests = [];
+    user.interestedIn = [];
+    user.favouritePosts = [];
 
     await user.save();
   });

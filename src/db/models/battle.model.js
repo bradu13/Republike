@@ -33,10 +33,18 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     paranoid: true
   });
+
+  Battle.afterCreate(async battle => {
+    battle.views = [];
+    battle.shares = [];
+    await battle.save();
+  });
+
   Battle.associate = function (models) {
     models.Battle.belongsTo(models.User);
     models.Battle.hasOne(models.Theme);
     models.Battle.hasMany(models.BattlePost);
   };
+
   return Battle;
 };

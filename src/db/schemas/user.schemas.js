@@ -36,26 +36,6 @@ const update = Joi.object({
   likeAmount: Joi.number()
     .min(0),
 
-  interestedIn: Joi.array()
-    .items(Joi.object({
-      themeId: Joi.string().required()
-    })),
-
-  favouritePosts: Joi.array()
-    .items(Joi.object({
-      battlePostId: Joi.string().required()
-    })),
-
-  friends: Joi.array()
-    .items(Joi.object({
-      userId: Joi.string().required()
-    })),
-
-  friendRequests: Joi.array()
-    .items(Joi.object({
-      userId: Joi.string().required()
-    })),
-
   isActive: Joi.boolean()
 });
 

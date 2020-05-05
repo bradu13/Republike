@@ -9,34 +9,34 @@ const add = async (battlePost) => {
   }
 };
 
-const get = async(id) => {
-  try{
-    return await BattlePostModel.findOne({where: {id}});
+const get = async (id) => {
+  try {
+    return await BattlePostModel.findOne({ where: { id } });
   } catch (error) {
     throw strings.errors.getBattlePost;
   }
 };
 
-const update = async (post,req) => {
-  if(post.UserId !== req.user.id){
+const update = async (post, req) => {
+  if (post.UserId !== req.user.id) {
     throw strings.errors.noBattlePostEditPermission;
   }
 
-  try{
+  try {
     await post.update(req.body);
-  } catch (error){
+  } catch (error) {
     throw strings.errors.updateBattlePost;
   }
 };
 
-const remove = async (post,req) => {
-  if(post.UserId !== req.user.id){
+const remove = async (post, req) => {
+  if (post.UserId !== req.user.id) {
     throw strings.errors.noBattlePostDeletePermission;
   }
 
-  try{
+  try {
     await post.destroy();
-  } catch (error){
+  } catch (error) {
     throw strings.errors.deleteBattlePost;
   }
 };

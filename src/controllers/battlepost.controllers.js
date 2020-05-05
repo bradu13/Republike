@@ -18,47 +18,47 @@ const add = async (req, res) => {
 };
 
 const get = async (req, res) => {
-  try{
+  try {
     const post = await BattlePostService.get(req.params.id);
 
-    if(!post){
+    if (!post) {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattlePost);
     }
 
     return rSuccess(res, HTTPStatus.OK, post);
-  } catch (error){
+  } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
 
 const update = async (req, res) => {
-  try{
+  try {
     const post = await BattlePostService.get(req.params.id);
 
-    if(!post){
+    if (!post) {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattlePost);
     }
 
     await BattlePostService.update(post, req);
 
     return rSuccess(res, HTTPStatus.OK, post);
-  } catch(error){
+  } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
 
 const remove = async (req, res) => {
-  try{
+  try {
     const post = await BattlePostService.get(req.params.id);
 
-    if(!post){
+    if (!post) {
       return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattlePost);
     }
 
     await BattlePostService.remove(post, req);
 
     return rSuccess(res, HTTPStatus.OK, strings.errors.deletedBattlePost);
-  } catch(error){
+  } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
 };
