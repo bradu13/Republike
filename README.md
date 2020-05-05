@@ -37,7 +37,7 @@
         •	PUT /battleposts/{id}
         •	DELETE /battleposts/{id}
         •	POST /battleposts/{id}/like
-        •	POST /battleposts/{id}/dislike
+        •	DELETE /battleposts/{id}/like
         •	POST /battlepost/{id}/share
         •	POST /battlepost/{id}/view
         •	POST /battlepost/{id}/report

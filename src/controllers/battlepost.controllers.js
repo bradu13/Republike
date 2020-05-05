@@ -4,6 +4,29 @@ const strings = require('../util/strings');
 const rError = require('../util/error');
 const rSuccess = require('../util/success');
 
+const load = async (req, res, next) => {
+  try {
+    const post = await BattlePostService.get(req.params.id);
+
+    if (!post) {
+      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattlePost);
+    }
+
+    req.battlepost = post;
+
+    return next();
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const verify = async (req, res, next) => {
+  if (req.battlepost.UserId !== req.user.id) {
+    return rError(res, HTTPStatus.UNAUTHORIZED, strings.errors.noBattlePostDeletePermission);
+  }
+  next();
+};
+
 const add = async (req, res) => {
   const battlePost = req.body;
   battlePost.UserId = req.user.id;
@@ -19,13 +42,7 @@ const add = async (req, res) => {
 
 const get = async (req, res) => {
   try {
-    const post = await BattlePostService.get(req.params.id);
-
-    if (!post) {
-      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattlePost);
-    }
-
-    return rSuccess(res, HTTPStatus.OK, post);
+    return rSuccess(res, HTTPStatus.OK, req.battlepost);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
@@ -33,15 +50,9 @@ const get = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const post = await BattlePostService.get(req.params.id);
+    await BattlePostService.update(req);
 
-    if (!post) {
-      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattlePost);
-    }
-
-    await BattlePostService.update(post, req);
-
-    return rSuccess(res, HTTPStatus.OK, post);
+    return rSuccess(res, HTTPStatus.OK, req.battlepost);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
@@ -49,13 +60,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const post = await BattlePostService.get(req.params.id);
-
-    if (!post) {
-      return rError(res, HTTPStatus.NOT_FOUND, strings.errors.noBattlePost);
-    }
-
-    await BattlePostService.remove(post, req);
+    await BattlePostService.remove(req);
 
     return rSuccess(res, HTTPStatus.OK, strings.errors.deletedBattlePost);
   } catch (error) {
@@ -63,9 +68,29 @@ const remove = async (req, res) => {
   }
 };
 
+const like = async (req, res) => {
+  try {
+    await BattlePostService.like(req);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const dislike = async (req, res) => {
+  try {
+    await BattlePostService.dislike(req);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
 module.exports = {
   add,
+  load,
   get,
   update,
-  remove
+  remove,
+  like,
+  verify,
+  dislike
 };

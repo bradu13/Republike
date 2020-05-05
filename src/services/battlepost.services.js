@@ -1,4 +1,5 @@
 const BattlePostModel = require('../db').BattlePost;
+const UserService = require('./user.services');
 const strings = require('../util/strings');
 
 const add = async (battlePost) => {
@@ -17,10 +18,8 @@ const get = async (id) => {
   }
 };
 
-const update = async (post, req) => {
-  if (post.UserId !== req.user.id) {
-    throw strings.errors.noBattlePostEditPermission;
-  }
+const update = async (req) => {
+  const post = req.battlepost;
 
   try {
     await post.update(req.body);
@@ -29,10 +28,8 @@ const update = async (post, req) => {
   }
 };
 
-const remove = async (post, req) => {
-  if (post.UserId !== req.user.id) {
-    throw strings.errors.noBattlePostDeletePermission;
-  }
+const remove = async (req) => {
+  const post = req.battlepost;
 
   try {
     await post.destroy();
@@ -41,9 +38,47 @@ const remove = async (post, req) => {
   }
 };
 
+const like = async (req) => {
+  const post = req.battlepost;
+  const user = req.user;
+
+  if (post.likes.includes(user.id)) {
+    throw strings.errors.alreadyLiked;
+  }
+
+  const owner = await UserService.get(post.UserId);
+
+  owner.likeAmount += 1;
+  await owner.save();
+
+  post.likes.push(user.id);
+  await post.update({ likes: post.likes });
+};
+
+const dislike = async (req) => {
+  const post = req.battlepost;
+  const user = req.user;
+
+  if (!post.likes.includes(user.id)) {
+    throw strings.errors.noLike;
+  }
+
+  const owner = await UserService.get(post.UserId);
+
+  owner.likeAmount -= 1;
+  await owner.save();
+
+  const indexLike = post.likes.indexOf(user.id);
+  post.likes.splice(indexLike, 1);
+
+  await post.update({ likes: post.likes });
+};
+
 module.exports = {
   add,
   get,
   update,
-  remove
+  remove,
+  like,
+  dislike
 };
