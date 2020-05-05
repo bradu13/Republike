@@ -46,6 +46,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     paranoid: true
   });
+
+  BattlePost.afterCreate(async post => {
+    post.views = [];
+    post.likes = [];
+    post.shares = [];
+    post.comments = [];
+  });
+
   BattlePost.associate = function (models) {
     models.BattlePost.belongsTo(models.User);
     models.BattlePost.belongsTo(models.Battle);
