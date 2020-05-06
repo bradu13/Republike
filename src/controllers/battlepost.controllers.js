@@ -71,6 +71,8 @@ const remove = async (req, res) => {
 const like = async (req, res) => {
   try {
     await BattlePostService.like(req);
+
+    return rSuccess(res, HTTPStatus.OK, req.battlepost.likes.length);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
@@ -79,6 +81,8 @@ const like = async (req, res) => {
 const dislike = async (req, res) => {
   try {
     await BattlePostService.dislike(req);
+
+    return rSuccess(res, HTTPStatus.OK, req.battlepost.likes.length);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
@@ -87,6 +91,8 @@ const dislike = async (req, res) => {
 const share = async (req, res) => {
   try {
     await BattlePostService.share(req);
+
+    return rSuccess(res, HTTPStatus.OK, req.battlepost.shares.length);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }
@@ -95,6 +101,8 @@ const share = async (req, res) => {
 const view = async (req, res) => {
   try {
     await BattlePostService.view(req);
+
+    return rSuccess(res, HTTPStatus.OK, req.battlepost.views.length);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }

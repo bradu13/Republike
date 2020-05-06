@@ -46,7 +46,7 @@ const like = async (req) => {
     throw strings.errors.alreadyLiked;
   }
 
-  const owner = await UserService.get(post.UserId);
+  const owner = await UserService.getById(post.UserId);
 
   owner.likeAmount += 1;
   await owner.save();
@@ -63,7 +63,7 @@ const dislike = async (req) => {
     throw strings.errors.noLike;
   }
 
-  const owner = await UserService.get(post.UserId);
+  const owner = await UserService.getById(post.UserId);
 
   owner.likeAmount -= 1;
   await owner.save();

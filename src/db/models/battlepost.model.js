@@ -52,6 +52,8 @@ module.exports = (sequelize, DataTypes) => {
     post.likes = [];
     post.shares = [];
     post.comments = [];
+
+    await post.save();
   });
 
   BattlePost.associate = function (models) {
