@@ -40,7 +40,10 @@
         •	DELETE /battleposts/{id}/like
         •	POST /battlepost/{id}/share
         •	POST /battlepost/{id}/view
-        •	POST /battlepost/{id}/report
+        •	
+        •	POST /reports
+        •	GET /reports/{id}
+        •	DELETE /reports/{id}
         •	
         •	POST /comments/
         •	GET /comments/{id}

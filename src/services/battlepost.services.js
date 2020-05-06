@@ -74,11 +74,37 @@ const dislike = async (req) => {
   await post.update({ likes: post.likes });
 };
 
+const share = async (req) => {
+  const post = req.battlepost;
+  const user = req.user;
+
+  if (post.shares.includes(user.id)) {
+    return;
+  }
+
+  post.shares.push(user.id);
+  await post.update({ shares: post.shares });
+};
+
+const view = async (req) => {
+  const post = req.battlepost;
+  const user = req.user;
+
+  if (post.views.includes(user.id)) {
+    return;
+  }
+
+  post.views.push(user.id);
+  await post.update({ views: post.views });
+};
+
 module.exports = {
   add,
   get,
   update,
   remove,
   like,
-  dislike
+  dislike,
+  share,
+  view
 };

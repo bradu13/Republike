@@ -84,6 +84,22 @@ const dislike = async (req, res) => {
   }
 };
 
+const share = async (req, res) => {
+  try {
+    await BattlePostService.share(req);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
+const view = async (req, res) => {
+  try {
+    await BattlePostService.view(req);
+  } catch (error) {
+    return rError(res, HTTPStatus.BAD_REQUEST, error);
+  }
+};
+
 module.exports = {
   add,
   load,
@@ -92,5 +108,7 @@ module.exports = {
   remove,
   like,
   verify,
-  dislike
+  dislike,
+  share,
+  view
 };

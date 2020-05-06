@@ -16,4 +16,7 @@ router.post('/:id/like', validateAuth.jwt, BattlePostController.load, BattlePost
 
 router.delete('/:id/like', validateAuth.jwt, BattlePostController.load, BattlePostController.dislike);
 
+router.post('/:id/share', validateAuth.jwt, BattlePostController.load, BattlePostController.share);
+
+router.post('/:id/view', validateAuth.jwt, BattlePostController.load, BattlePostController.view);
 module.exports = router;
