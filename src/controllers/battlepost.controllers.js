@@ -62,7 +62,7 @@ const remove = async (req, res) => {
   try {
     await BattlePostService.remove(req);
 
-    return rSuccess(res, HTTPStatus.OK, strings.errors.deletedBattlePost);
+    return rSuccess(res, HTTPStatus.OK, strings.delete.success);
   } catch (error) {
     return rError(res, HTTPStatus.BAD_REQUEST, error);
   }

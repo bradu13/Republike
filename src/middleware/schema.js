@@ -2,6 +2,7 @@ const UserSchema = require('../db/schemas/user.schemas');
 const BattleSchema = require('../db/schemas/battle.schemas');
 const BattlePostSchema = require('../db/schemas/battlepost.schemas');
 const UserSettingSchema = require('../db/schemas/usersetting.schemas');
+const ReportSchema = require('../db/schemas/report.schemas');
 const HTTPStatus = require('http-status-codes');
 const rError = require('../util/error');
 
@@ -88,6 +89,18 @@ const battlePostUpdate = async (req, res, next) => {
   return rError(res, HTTPStatus.BAD_REQUEST, result.error);
 };
 
+const reportAdd = async (req, res, next) => {
+  const report = req.body;
+
+  const result = ReportSchema.create.validate(report);
+
+  if (!result.error) {
+    return next();
+  }
+
+  return rError(res, HTTPStatus.BAD_REQUEST, result.error);
+};
+
 module.exports = {
   userAdd,
   userUpdate,
@@ -95,5 +108,6 @@ module.exports = {
   battleAdd,
   battleUpdate,
   battlePostAdd,
-  battlePostUpdate
+  battlePostUpdate,
+  reportAdd
 };
