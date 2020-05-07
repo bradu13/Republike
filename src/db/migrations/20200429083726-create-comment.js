@@ -16,6 +16,10 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false
       },
+      BattlePostId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

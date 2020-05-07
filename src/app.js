@@ -16,6 +16,7 @@ const notificationRouter = require('./routes/notification.routes');
 const userSettingRouter = require('./routes/usersetting.routes');
 const imageRouter = require('./routes/image.routes');
 const reportRouter = require('./routes/report.routes');
+const commentRouter = require('./routes/comment.routes');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use('/battles', battleRouter);
 app.use('/battleposts', battlePostRouter);
 app.use('/images', imageRouter);
 app.use('/reports', reportRouter);
+app.use('/comments', commentRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res) {

@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       references: 'users',
       referencesKey: 'id'
+    },
+    BattlePostId: {
+      type: DataTypes.INTEGER,
+      references: 'battleposts',
+      referencesKey: 'id'
     }
   }, {
     paranoid: true
