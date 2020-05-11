@@ -37,7 +37,7 @@ module.exports = {
     addBattlePost: 'Error while creating a battle post.',
     addReport: 'Error while creating report.',
     addComment: 'Error while creating comment.',
-    addImage: 'Error while creating the image record.',
+    addFile: 'Error while creating the file record.',
     duplicateUser: 'There is another user with this email.',
     getUser: 'Error while getting the user.',
     getBattle: 'Error while getting the battle.',

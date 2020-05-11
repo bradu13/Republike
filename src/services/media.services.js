@@ -1,6 +1,6 @@
 const multer = require('multer');
 const path = require('path');
-const ImageModel = require('../db').Image;
+const FileModel = require('../db').File;
 const strings = require('../util/strings');
 
 const storage = multer.diskStorage({
@@ -15,12 +15,12 @@ const upload = multer({ storage: storage }).single('file');
 
 const add = async (name, webPath) => {
   try {
-    return await ImageModel.create({
+    return await FileModel.create({
       name,
       webPath
     });
   } catch (error) {
-    throw strings.errors.addImage;
+    throw strings.errors.addFile;
   }
 };
 
