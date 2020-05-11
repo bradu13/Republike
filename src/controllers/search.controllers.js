@@ -1,6 +1,5 @@
 const SearchService = require('../services/search.services');
 const HTTPStatus = require('http-status-codes');
-const strings = require('../util/strings');
 const rError = require('../util/error');
 const rSuccess = require('../util/success');
 

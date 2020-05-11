@@ -34,10 +34,14 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   });
 
-  Battle.afterCreate(async battle => {
-    battle.views = [];
-    battle.shares = [];
-    await battle.save();
+  Battle.beforeSave(battle => {
+    if (battle.views === null) {
+      battle.views = [];
+    }
+
+    if (battle.shares === null) {
+      battle.shares = [];
+    }
   });
 
   Battle.associate = function (models) {

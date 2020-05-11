@@ -26,18 +26,23 @@ module.exports = (sequelize, DataTypes) => {
     if (user.changed('password')) {
       user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     }
+    if (user.friends == null) {
+      user.friends = [];
+    }
+    if (user.friendRequests == null) {
+      user.friendRequests = [];
+    }
+    if (user.interestedIn == null) {
+      user.interestedIn = [];
+    }
+    if (user.favouritePosts == null) {
+      user.favouritePosts = [];
+    }
   });
 
   User.afterCreate(async (user) => {
     await sequelize.models.UserSetting.create({ type: 1, UserId: user.id });
     await sequelize.models.UserSetting.create({ type: 2, UserId: user.id });
-
-    user.friends = [];
-    user.friendRequests = [];
-    user.interestedIn = [];
-    user.favouritePosts = [];
-
-    await user.save();
   });
 
   User.prototype.comparePassword = function (passw, cb) {

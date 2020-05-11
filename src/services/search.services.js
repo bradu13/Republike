@@ -6,31 +6,37 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const search = async (string) => {
-  try{
-    const comments = await CommentModel.findAll({where: {
+  try {
+    const comments = await CommentModel.findAll({
+      where: {
         content: {
           [Op.iLike]: `%${string}%`
         }
-      }});
+      }
+    });
 
-    const posts = await BattlePostModel.findAll({where: {
+    const posts = await BattlePostModel.findAll({
+      where: {
         title: {
           [Op.iLike]: `%${string}%`
         }
-      }});
+      }
+    });
 
-    const battles = await BattleModel.findAll({where: {
+    const battles = await BattleModel.findAll({
+      where: {
         name: {
           [Op.iLike]: `%${string}%`
         }
-      }});
+      }
+    });
 
     return {
       comments,
       posts,
       battles
-    }
-  }catch (error){
+    };
+  } catch (error) {
     console.log(error);
     throw strings.errors.search;
   }

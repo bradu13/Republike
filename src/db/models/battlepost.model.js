@@ -47,13 +47,19 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true
   });
 
-  BattlePost.afterCreate(async post => {
-    post.views = [];
-    post.likes = [];
-    post.shares = [];
-    post.comments = [];
-
-    await post.save();
+  BattlePost.beforeSave(post => {
+    if (post.views === null) {
+      post.views = [];
+    }
+    if (post.likes === null) {
+      post.likes = [];
+    }
+    if (post.shares === null) {
+      post.shares = [];
+    }
+    if (post.comments === null) {
+      post.comments = [];
+    }
   });
 
   BattlePost.associate = function (models) {
