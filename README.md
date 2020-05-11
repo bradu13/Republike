@@ -79,4 +79,11 @@
 Media types; text, audio, video, image. 
 The screen about the installation already exists in the XD file. 
 The user sets up and starts the war.~~
-    
++ Gold, silver, bronze medals, which received the most likes.
++ Users are granted 100 likes every day, if they log into the system. 
+And spend 100 likes during the day by liking the battle posts.
++ ~~Apart from Like, users have aureus earnings, which is the in-game currency. 
+This gain is earned according to the following rules.~~
+    + ~~User creates a battle post and he gets 10 aureus every time he gets a like.~~
+    + If he wishes, he can later convert the won aureus to Like on his profile page. 
+    Setup here => 1like = 10 aureus

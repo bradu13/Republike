@@ -48,7 +48,7 @@ const like = async (req) => {
 
   const owner = await UserService.getById(post.UserId);
 
-  owner.likeAmount += 1;
+  owner.aureusAmount += 10;
   await owner.save();
 
   post.likes.push(user.id);
@@ -65,7 +65,7 @@ const dislike = async (req) => {
 
   const owner = await UserService.getById(post.UserId);
 
-  owner.likeAmount -= 1;
+  owner.aureusAmount -= 10;
   await owner.save();
 
   const indexLike = post.likes.indexOf(user.id);
