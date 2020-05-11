@@ -55,7 +55,7 @@
         •	PUT /usersettings/
         •	
         •	POST /images/
-        •	GET /images/{id}/
+        •	GET /uploads/ [static resources]
         •	
         •   POST /users/
         •   GET /users/{id}/
@@ -69,4 +69,14 @@
         •	DELETE /users/{id}/friends/
         •	DELETE /users/{id}/friendsrequests/
         •	DELETE /users/{id}/favorites/
+        
+        
+## Scenarios
+
++ ~~User becomes a member~~
++ ~~Activation is done by email~~
++ ~~The thing is; the user sets up a battle with a media type. 
+Media types; text, audio, video, image. 
+The screen about the installation already exists in the XD file. 
+The user sets up and starts the war.~~
     
