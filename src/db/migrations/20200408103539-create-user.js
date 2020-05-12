@@ -60,6 +60,9 @@ module.exports = {
             allowNull: false,
             defaultValue: false
           },
+          lastReward: {
+            type: Sequelize.DATE
+          },
           createdAt: {
             allowNull: false,
             type: Sequelize.DATE

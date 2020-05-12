@@ -18,6 +18,7 @@ const mediaRouter = require('./routes/media.routes');
 const reportRouter = require('./routes/report.routes');
 const commentRouter = require('./routes/comment.routes');
 const searchRouter = require('./routes/search.routes');
+const rewardRouter = require('./routes/reward.routes');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/media', mediaRouter);
 app.use('/reports', reportRouter);
 app.use('/comments', commentRouter);
 app.use('/search', searchRouter);
+app.use('/rewards', rewardRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res) {

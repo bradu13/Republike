@@ -84,7 +84,12 @@ module.exports = {
     friendRequestAlreadySent: 'There is another friend request pending.',
     notificationCreateError: 'Error when creating new notification.',
     notificationGet: 'Error when getting the notifications.',
-    search: 'Error while searching.'
+    search: 'Error while searching.',
+    dailyReward: 'Error while giving daily reward',
+    alreadyRewardedToday: 'Already rewarded today',
+    convert: 'Error while converting.',
+    invalidAureusAmount: 'Invalid aureus amount.',
+    giveTenMultiple: 'The aureus amount should be a multiple of 10.'
   },
   notifications: {
     friendRequest: {

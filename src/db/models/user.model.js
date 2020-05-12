@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     favouritePosts: DataTypes.ARRAY(DataTypes.UUID),
     friends: DataTypes.ARRAY(DataTypes.UUID),
     friendRequests: DataTypes.ARRAY(DataTypes.UUID),
-    isActive: DataTypes.BOOLEAN
+    isActive: DataTypes.BOOLEAN,
+    lastReward: DataTypes.DATEONLY
   }, {
     paranoid: true
   });
@@ -43,6 +44,14 @@ module.exports = (sequelize, DataTypes) => {
   User.afterCreate(async (user) => {
     await sequelize.models.UserSetting.create({ type: 1, UserId: user.id });
     await sequelize.models.UserSetting.create({ type: 2, UserId: user.id });
+  });
+
+  User.afterDestroy(async (user) => {
+    const setting1 = await sequelize.models.UserSetting.findOne({ where: { type: 1, UserId: user.id } });
+    const setting2 = await sequelize.models.UserSetting.findOne({ where: { type: 2, UserId: user.id } });
+
+    await setting1.destroy();
+    await setting2.destroy();
   });
 
   User.prototype.comparePassword = function (passw, cb) {
